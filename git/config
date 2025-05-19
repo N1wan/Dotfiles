@@ -1,0 +1,9 @@
+[include]
+	path = ./private
+[user]
+	name = N1wan
+	email = <hidden>
+[core]
+	editor = nvim
+[init]
+	defaultBranch = main
