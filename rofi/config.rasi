@@ -1,0 +1,21 @@
+@import "themes/catppuccin-mocha"
+@theme "catppuccin"
+
+configuration {
+    show-icons: true;
+
+    display-ssh:    "󰣀 ssh";
+    display-run:    "󱓞 run";
+    display-drun:   "󰣖 drun";
+    display-window: "󱂬 window";
+    display-combi:  "󰕘 combi";
+    display-filebrowser: "󰉋 filebrowser";
+}
+
+window {
+    height: 600;
+    width: 600;
+
+    border: 2;
+    border-color: @lavender;
+}
