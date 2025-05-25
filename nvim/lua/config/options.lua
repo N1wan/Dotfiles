@@ -1,0 +1,21 @@
+
+-- Make relative line numbers default
+vim.o.number = true
+vim.o.relativenumber = true
+
+-- make the tab size 4
+vim.o.shiftwidth = 4
+vim.o.tabstop = 4
+
+-- Sync clipboard between OS and Neovim.
+--  Schedule the setting after `UiEnter` because it can increase startup-time.
+vim.schedule(function()
+  vim.o.clipboard = 'unnamedplus'
+end)
+
+-- Save undo history
+vim.o.undofile = true
+
+-- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+vim.o.ignorecase = true
+vim.o.smartcase = true
