@@ -3,5 +3,6 @@
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "d24b3f1612e53f9d54d866b16bedab51813f2bf1" },
   "mason.nvim": { "branch": "main", "commit": "8024d64e1330b86044fed4c8494ef3dcd483a67c" },
-  "nvim-lspconfig": { "branch": "master", "commit": "562487bc108bf73c2493f9e701b9334b48163216" }
+  "nvim-lspconfig": { "branch": "master", "commit": "3ea99227e316c5028f57a4d86a1a7fd01dd876d0" },
+  "vim-tmux-navigator": { "branch": "master", "commit": "0ecda542c0bd3ea26444044c7f03e469a6bb0bff" }
 }
