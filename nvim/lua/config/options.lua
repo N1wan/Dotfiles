@@ -8,7 +8,7 @@ vim.o.shiftwidth = 4
 vim.o.tabstop = 4
 
 -- Sync clipboard between OS and Neovim.
---  Schedule the setting after `UiEnter` because it can increase startup-time.
+-- Schedule the setting after `UiEnter` because it can increase startup-time.
 vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
@@ -19,3 +19,9 @@ vim.o.undofile = true
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
 vim.o.smartcase = true
+
+-- Set scrolloff so cursor stays closer to the center
+vim.o.scrolloff = 20
+
+-- Dont show what mode im in
+vim.o.showmode = false

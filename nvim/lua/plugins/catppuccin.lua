@@ -7,6 +7,7 @@ return {
 		transparent_background = false,
 		show_end_of_buffer = true, -- shows the '~' characters after the end of buffers
 		compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
+		compile = true,
 		styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
 			comments = { "italic" }, -- Change the style of comments
 			conditionals = { "italic" },
@@ -51,7 +52,8 @@ return {
 		},
 	},	
 	config = function(_, opts)
-		require("catppuccin").setup(opts)
+		local catppuccin = require("catppuccin")
+		catppuccin.setup(opts)
 		vim.cmd.colorscheme("catppuccin")
 	end,
 }
