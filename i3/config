@@ -39,6 +39,9 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 
+# print screen
+bindsym Print exec scrot $HOME/Pictures/Screenshots/`date +%Y-%m-%d_%H:%M:%S`.png
+
 # control audio and make i3blocks update
 # Volume up
 bindsym XF86AudioRaiseVolume exec "pamixer -i 5; pkill -RTMIN+10 i3blocks"
