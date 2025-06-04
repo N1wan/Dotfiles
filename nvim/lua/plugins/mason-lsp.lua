@@ -12,6 +12,7 @@ return {
       "cmake",
       "lua_ls",
       "vimls",
+	  "jdtls",
     },
     automatic_installation = true,
   },
