@@ -22,6 +22,11 @@ exec --no-startup-id sxhkd
 # set the background
 exec --no-startup-id feh --bg-fill /home/niwan/Pictures/Wallpapers/arch-black-4k.png
 
+# disable mouse acceleration
+exec --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Accel Profile Enabled" 0, 1, 0
+exec --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Accel Speed" 0.5
+exec --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Disable While Typing Enabled" 0
+
 # start firefox faster?
 exec dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY &
 
