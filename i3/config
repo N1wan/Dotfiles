@@ -8,6 +8,9 @@ font pango:JetBrainsMono Nerd Font 11
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
+# set monitor on hdmi to QHD and 144hz
+exec --no-startup-id xrandr --output DisplayPort-0 --mode 1920x1080 --rate 144.00
+
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
