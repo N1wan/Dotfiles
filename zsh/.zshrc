@@ -71,7 +71,8 @@ zstyle ':completion:*' menu no
 
 # Aliases
 alias ls='ls --color'
-alias ll='ls --color -la'
+alias ll='ls -la'
+alias clear='clear; fastfetch'
 alias c='clear'
 alias grep='grep --color'
 alias lg='lazygit'
