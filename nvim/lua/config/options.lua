@@ -21,7 +21,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Set scrolloff so cursor stays closer to the center
-vim.o.scrolloff = 20
+vim.o.scrolloff = 12
 
 -- Dont show what mode im in
 vim.o.showmode = false
