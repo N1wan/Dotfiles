@@ -9,7 +9,7 @@ font pango:JetBrainsMono Nerd Font 11
 exec --no-startup-id dex --autostart --environment i3
 
 # set monitor on hdmi to QHD and 144hz
-exec --no-startup-id xrandr --output DisplayPort-0 --mode 1920x1080 --rate 144.00
+exec --no-startup-id xrandr --output HDMI-0 --mode 2560x1440 --rate 144.00
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
@@ -19,8 +19,8 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
-# sxhkd keybindings
-exec --no-startup-id sxhkd
+# dissable mouse if not moving
+exec --no-startup-id unclutter --timeout 1 --jitter 10 --ignore-scrolling --start-hidden
 
 # set the background
 exec --no-startup-id feh --bg-fill /home/niwan/Pictures/Wallpapers/arch-black-4k.png
@@ -43,15 +43,23 @@ tiling_drag modifier titlebar
 # start a terminal
 bindsym $mod+Return exec kitty
 
+# start a browser
+bindsym $mod+b exec zen-browser
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
+# start rofi (a program launcher)
 bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 
 # print screen
 bindsym Print exec scrot $HOME/Pictures/Screenshots/`date +%Y-%m-%d_%H:%M:%S`.png
+
+# toggle i3 bar
+bindsym $mod+c bar mode toggle
+# make i3 start with the bar toggled off
+exec_always --no-startup-id i3-msg bar mode toggle
 
 # control audio and make i3blocks update
 # Volume up
