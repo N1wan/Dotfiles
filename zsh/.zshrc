@@ -76,6 +76,17 @@ alias clear='clear; fastfetch'
 alias c='clear'
 alias grep='grep --color'
 alias lg='lazygit'
+systemctl() {
+	case "$1" in
+		hibernate|suspend|suspend-then-hibernate|hybrid-sleep|hybrid-hibernate)
+			dm-tool lock
+			command systemctl "$@"
+			;;
+		*)
+			command systemctl "$@"
+			;;
+	esac
+}
 
 # Shell integrations
 eval "$(fzf --zsh)"
