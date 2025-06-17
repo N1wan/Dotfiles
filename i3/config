@@ -8,30 +8,23 @@ font pango:JetBrainsMono Nerd Font 11
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
-# set monitor on hdmi to QHD and 144hz
-exec --no-startup-id xrandr --output HDMI-0 --mode 2560x1440 --rate 144.00
-
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
+# set monitor on hdmi to QHD and 144hz
+exec_always --no-startup-id xrandr --output HDMI-0 --mode 2560x1440 --rate 144.00
+
 # dissable mouse if not moving
-exec --no-startup-id unclutter --timeout 1 --jitter 10 --ignore-scrolling --start-hidden
+exec_always --no-startup-id unclutter --timeout 1 --jitter 10 --ignore-scrolling --start-hidden
 
 # set the background
-exec --no-startup-id feh --bg-fill /home/niwan/Pictures/Wallpapers/arch-black-4k.png
+exec_always --no-startup-id feh --bg-fill /home/niwan/Pictures/Wallpapers/arch-black-4k.png
 
 # disable mouse acceleration
-exec --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Accel Profile Enabled" 0, 1, 0
-exec --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Accel Speed" 0.5
-exec --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Disable While Typing Enabled" 0
-
-# start firefox faster?
-exec dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY &
+exec_always --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Accel Profile Enabled" 0, 1, 0
+exec_always --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Accel Speed" 0.5
+exec_always --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Disable While Typing Enabled" 0
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
