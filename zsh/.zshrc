@@ -35,10 +35,7 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
 # Add in snippets
-zinit snippet OMZP::git
 zinit snippet OMZP::sudo
-zinit snippet OMZP::archlinux
-zinit snippet OMZP::command-not-found
 
 # Load completions
 autoload -U compinit && compinit
@@ -46,9 +43,14 @@ autoload -U compinit && compinit
 zinit cdreplay -q
 
 # Keybindings
-bindkey -e
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
+# bindkey -v
+# bindkey '^p' history-search-backward
+# bindkey '^n' history-search-forward
+# bindkey "^[[3~" delete-char
+
+bindkey -v
+bindkey -M vicmd 'k' history-search-backward
+bindkey -M vicmd 'j' history-search-forward
 bindkey "^[[3~" delete-char
 
 # History
@@ -69,12 +71,15 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors '${(s.:.)LS_COLORS}'
 zstyle ':completion:*' menu no
 
+# environment variables
+
 # Aliases
 alias ls='ls --color'
 alias ll='ls -la'
 alias clear='clear; fastfetch'
 alias c='clear'
 alias grep='grep --color'
+alias timg='timg -pk'
 alias lg='lazygit'
 systemctl() {
 	case "$1" in
