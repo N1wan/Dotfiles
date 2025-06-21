@@ -72,6 +72,7 @@ zstyle ':completion:*' list-colors '${(s.:.)LS_COLORS}'
 zstyle ':completion:*' menu no
 
 # environment variables
+export MANPAGER='nvim +Man!'
 
 # Aliases
 alias ls='ls --color'
