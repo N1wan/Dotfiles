@@ -10,7 +10,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+# exec --no-startup-id nm-applet
 
 # set monitor on hdmi to QHD and 144hz
 exec_always --no-startup-id xrandr --output HDMI-0 --mode 2560x1440 --rate 144.00
