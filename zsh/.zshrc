@@ -14,7 +14,7 @@ fi
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 # Set the directory to store zinit and plugins
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
 
 # Download Zinit, if it's not there yet
 if [ ! -d "$ZINIT_HOME" ]; then
@@ -80,6 +80,7 @@ alias clear='clear; fastfetch'
 alias c='clear'
 alias grep='grep --color'
 alias timg='timg -pk'
+alias tls='tmux ls'
 alias lg='lazygit'
 systemctl() {
 	case "$1" in
