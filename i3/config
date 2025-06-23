@@ -13,21 +13,21 @@ exec --no-startup-id dex --autostart --environment i3
 # exec --no-startup-id nm-applet
 
 # set monitor on hdmi to QHD and 144hz
-exec_always --no-startup-id xrandr --output HDMI-0 --mode 2560x1440 --rate 144.00
+exec --no-startup-id xrandr --output HDMI-0 --mode 2560x1440 --rate 144.00
 
 # low battery notification
-exec_always --no-startup-id batsignal -b
+exec --no-startup-id batsignal -b
 
 # dissable mouse if not moving
-exec_always --no-startup-id unclutter --timeout 1 --jitter 10 --ignore-scrolling --start-hidden
+exec --no-startup-id unclutter --timeout 1 --jitter 10 --ignore-scrolling --start-hidden
 
 # set the background
-exec_always --no-startup-id feh --bg-fill /home/niwan/Pictures/Wallpapers/arch-black-4k.png
+exec --no-startup-id feh --bg-fill /home/niwan/Pictures/Wallpapers/arch-black-4k.png
 
 # disable mouse acceleration
-exec_always --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Accel Profile Enabled" 0, 1, 0
-exec_always --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Accel Speed" 0.5
-exec_always --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Disable While Typing Enabled" 0
+exec --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Accel Profile Enabled" 0, 1, 0
+exec --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Accel Speed" 0.5
+exec --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Disable While Typing Enabled" 0
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
