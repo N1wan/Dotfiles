@@ -15,6 +15,7 @@ end)
 
 -- Save undo history
 vim.o.undofile = true
+vim.o.undodir = vim.fn.stdpath("data") .. "/undo"
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
