@@ -94,6 +94,21 @@ systemctl() {
 			;;
 	esac
 }
+sudo() {
+	case "$1" in
+		ls)
+			shift
+			command sudo ls --color "$@"
+			;;
+		ll)
+			shift
+			command sudo ls --color -la "$@"
+			;;
+		*)
+			command sudo "$@"
+			;;
+	esac
+}
 
 # Shell integrations
 eval "$(fzf --zsh)"
