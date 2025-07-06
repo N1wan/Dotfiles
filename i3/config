@@ -24,7 +24,7 @@ exec --no-startup-id batsignal -b
 exec --no-startup-id unclutter --timeout 1 --jitter 10 --ignore-scrolling --start-hidden
 
 # set the background
-exec --no-startup-id feh --bg-fill /home/niwan/Pictures/Wallpapers/arch-black-4k.png
+exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/current_background
 
 # disable mouse acceleration
 exec --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Accel Profile Enabled" 0, 1, 0
