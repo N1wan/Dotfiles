@@ -76,13 +76,13 @@ export MANPAGER='nvim +Man!'
 
 # Aliases
 alias ls='ls --color'
-alias ll='ls -la'
+alias ll='ls -hla'
 alias clear='clear; fastfetch'
 alias c='clear'
 alias grep='grep --color'
 alias timg='timg -pk'
-alias tls='tmux ls'
 alias lg='lazygit'
+alias zen='zen-browser'
 systemctl() {
 	case "$1" in
 		hibernate|suspend|suspend-then-hibernate|hybrid-sleep|hybrid-hibernate)
