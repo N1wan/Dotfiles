@@ -10,7 +10,10 @@ font pango:JetBrainsMono Nerd Font 11
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-# exec --no-startup-id nm-applet
+exec_always --no-startup-id nm-applet
+
+# bluetooth applet
+exec_always --no-startup-id blueman-applet
 
 # set monitor on hdmi to QHD and 144hz
 exec --no-startup-id xrandr --output HDMI-0 --mode 2560x1440 --rate 144.00
@@ -27,9 +30,9 @@ exec --no-startup-id unclutter --timeout 1 --jitter 10 --ignore-scrolling --star
 exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/current_background
 
 # disable mouse acceleration
-exec --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Accel Profile Enabled" 0, 1, 0
-exec --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Accel Speed" 0.5
-exec --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Disable While Typing Enabled" 0
+exec_always --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Accel Profile Enabled" 0, 1, 0
+exec_always --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Accel Speed" 0.5
+exec_always --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Disable While Typing Enabled" 0
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
