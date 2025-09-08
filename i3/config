@@ -15,6 +15,9 @@ exec_always --no-startup-id nm-applet
 # bluetooth applet
 exec_always --no-startup-id blueman-applet
 
+# start Freedesktop Secrets API provider
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
+
 # set monitor on hdmi to QHD and 144hz
 exec --no-startup-id xrandr --output HDMI-0 --mode 2560x1440 --rate 144.00
 
