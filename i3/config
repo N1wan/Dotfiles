@@ -40,6 +40,9 @@ exec_always --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "li
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# lock
+bindsym $mod+x exec dm-tool lock
+
 # start a terminal
 bindsym $mod+Return exec kitty
 
