@@ -30,11 +30,10 @@ check_packages() {
         fi
     done
 
-    # log missing packages
-    if ((${#missing_pkgs[@]} > 0)); then
-        echo "[WARN] The following packages were not found and will be skipped:" | tee -a ~/missing_packages.log
-        printf '%s\n' "${missing_pkgs[@]}" | tee -a ~/missing_packages.log
-    fi
+    # # log missing packages
+    # if ((${#missing_pkgs[@]} > 0)); then
+    #     printf '%s\n' "${missing_pkgs[@]}" | tee -a ~/missing_packages.log
+    # fi
 
     printf '%s\n' "${valid_pkgs[@]}"
 }
