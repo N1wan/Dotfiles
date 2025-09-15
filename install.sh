@@ -18,11 +18,89 @@ else
     echo "[INFO] yay already installed."
 fi
 
-# installing programs
-yay -S --noconfirm --needed --batchinstall acpi alsa-plugins alsa-utils amd-ucode arandr arch-install-scripts baobab base base-devel batsignal bc bind blueman bluez bluez-utils bottom brightnessctl brillo catppuccin-gtk-theme-mocha clang composer curl dhcpcd dhcping dialog discord dmenu dmidecode dolphin dosfstools dunst e2fsprogs efibootmgr fastfetch fd feh firefox fzf gdb gimp git gnome-keyring google-gemini-cli grub haveged htop i3-wm i3blocks i3lock i3status imagemagick inetutils intellij-idea-ultimate-edition iw iwd java-environment-common java-runtime-common jdk-openjdk jdk21-openjdk julia kitty lazygit libreoffice-fresh lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lightdm-slick-greeter lightdm-webkit2-greeter linux linux-firmware linux-headers lshw luarocks lutris man-db man-pages maven micromamba-bin modelsim-intel-starter mokutil msmtp msmtp-mta mtr neovim net-tools network-manager-applet networkmanager nix nm-connection-editor nodejs nomacs npm ntfs-3g ntp nvidia-open nvidia-prime nvidia-settings openssh optimus-manager-git os-prober pa-applet-git pacman-contrib pacseek pamixer pavucontrol perl-authen-sasl perl-io-socket-ssl php pipewire pipewire-pulse powertop prismlauncher prismlauncher-themes-git python-conda python-eduvpn-client python-pip python-pynvim qemu-full qt5ct qt6ct quartus-free-devinfo-cyclone10lp quartus-free-quartus reflector ripgrep rofi ruby rust scrot signal-desktop steam sudo texinfo thunderbird tigervnc timg tldr tlp tlp-rdw tmux tor torbrowser-launcher tree tree-sitter-cli unclutter unzip upower vi vim vlc wget wine wireplumber wireshark-qt xclip xdg-user-dirs xorg-bdftopcf xorg-iceauth xorg-mkfontscale xorg-server xorg-sessreg xorg-setxkbmap xorg-smproxy xorg-x11perf xorg-xbacklight xorg-xcmsdb xorg-xcursorgen xorg-xdpyinfo xorg-xdriinfo xorg-xev xorg-xgamma xorg-xhost xorg-xinit xorg-xinput xorg-xkbcomp xorg-xkbevd xorg-xkbprint xorg-xkbutils xorg-xkill xorg-xlsatoms xorg-xlsclients xorg-xpr xorg-xrandr xorg-xrefresh xorg-xset xorg-xsetroot xorg-xvinfo xorg-xwd xorg-xwininfo xorg-xwud xsel yay zen-browser-bin zoxide zsh
+check_packages() {
+    local valid_pkgs=()
+    local missing_pkgs=()
 
-# installing fonts
-yay -S --noconfirm --needed --batchinstall noto-fonts noto-fonts-emoji papirus-icon-theme terminus-font ttf-dejavu ttf-droid ttf-jetbrains-mono-nerd ttf-liberation ttf-liberation-mono-nerd ttf-nerd-fonts-symbols-mono ttf-noto-nerd ttf-roboto ttf-ubuntu-font-family 
+    for pkg in "$@"; do
+        if yay -Si "$pkg" &>/dev/null; then
+            valid_pkgs+=("$pkg")
+        else
+            missing_pkgs+=("$pkg")
+        fi
+    done
+
+    # log missing packages
+    if ((${#missing_pkgs[@]} > 0)); then
+        echo "[WARN] The following packages were not found and will be skipped:" | tee -a ~/missing_packages.log
+        printf '%s\n' "${missing_pkgs[@]}" | tee -a ~/missing_packages.log
+    fi
+
+    echo "${valid_pkgs[@]}"
+}
+
+# -------------------------
+# categories
+# -------------------------
+
+PROGRAMS=(
+  acpi alsa-plugins alsa-utils amd-ucode arandr arch-install-scripts baobab base base-devel
+  batsignal bc bind blueman bluez bluez-utils bottom brightnessctl brillo catppuccin-gtk-theme-mocha
+  clang composer curl dhcpcd dhcping dialog discord dmenu dmidecode dolphin dosfstools dunst
+  e2fsprogs efibootmgr fastfetch fd feh firefox fzf gdb gimp git gnome-keyring google-gemini-cli grub
+  haveged htop i3-wm i3blocks i3lock i3status imagemagick inetutils intellij-idea-ultimate-edition iw iwd
+  java-environment-common java-runtime-common jdk-openjdk jdk21-openjdk julia kitty lazygit
+  libreoffice-fresh lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lightdm-slick-greeter
+  lightdm-webkit2-greeter linux linux-firmware linux-headers lshw luarocks lutris man-db man-pages maven
+  micromamba-bin modelsim-intel-starter mokutil msmtp msmtp-mta mtr neovim net-tools network-manager-applet
+  networkmanager nix nm-connection-editor nodejs nomacs npm ntfs-3g ntp nvidia-open nvidia-prime nvidia-settings
+  openssh optimus-manager-git os-prober pa-applet-git pacman-contrib pacseek pamixer pavucontrol perl-authen-sasl
+  perl-io-socket-ssl php pipewire pipewire-pulse powertop prismlauncher prismlauncher-themes-git
+  python-conda python-eduvpn-client python-pip python-pynvim qemu-full qt5ct qt6ct
+  quartus-free-devinfo-cyclone10lp quartus-free-quartus reflector ripgrep rofi ruby rust scrot
+  signal-desktop steam sudo texinfo thunderbird tigervnc timg tldr tlp tlp-rdw tmux tor torbrowser-launcher
+  tree tree-sitter-cli unclutter unzip upower vi vim vlc wget wine wireplumber wireshark-qt xclip xdg-user-dirs
+  xorg-bdftopcf xorg-iceauth xorg-mkfontscale xorg-server xorg-sessreg xorg-setxkbmap xorg-smproxy
+  xorg-x11perf xorg-xbacklight xorg-xcmsdb xorg-xcursorgen xorg-xdpyinfo xorg-xdriinfo xorg-xev xorg-xgamma
+  xorg-xhost xorg-xinit xorg-xinput xorg-xkbcomp xorg-xkbevd xorg-xkbprint xorg-xkbutils xorg-xkill
+  xorg-xlsatoms xorg-xlsclients xorg-xpr xorg-xrandr xorg-xrefresh xorg-xset xorg-xsetroot xorg-xvinfo
+  xorg-xwd xorg-xwininfo xorg-xwud xsel yay zen-browser-bin zoxide zsh
+)
+
+FONTS=(
+  noto-fonts noto-fonts-emoji papirus-icon-theme terminus-font
+  ttf-dejavu ttf-droid ttf-jetbrains-mono-nerd ttf-liberation
+  ttf-liberation-mono-nerd ttf-nerd-fonts-symbols-mono ttf-noto-nerd
+  ttf-roboto ttf-ubuntu-font-family
+)
+
+# You can add more categories here:
+# DEV_TOOLS=( docker docker-compose postgresql )
+# GAMES=( minecraft-launcher heroic-games-launcher )
+
+# -------------------------
+# combine categories
+# -------------------------
+
+ALL_PACKAGES=(
+  "${PROGRAMS[@]}"
+  "${FONTS[@]}"
+  # "${DEV_TOOLS[@]}"
+  # "${GAMES[@]}"
+)
+
+# -------------------------
+# filter + install
+# -------------------------
+
+VALID_PACKAGES=($(check_packages "${ALL_PACKAGES[@]}"))
+
+if ((${#VALID_PACKAGES[@]} > 0)); then
+    yay -S --noconfirm --needed --batchinstall "${VALID_PACKAGES[@]}"
+else
+    echo "[ERROR] No valid packages found. Check your package list."
+    exit 1
+fi
 
 # change shell (only if not already zsh)
 if [ "$SHELL" != "/usr/bin/zsh" ]; then
