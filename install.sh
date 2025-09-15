@@ -3,6 +3,21 @@
 # exit on error
 set -e
 
+enable_multilib() {
+    local conf="/etc/pacman.conf"
+
+    # If [multilib] section is already enabled, do nothing
+    if grep -q "^\[multilib\]" "$conf"; then
+        echo "[INFO] multilib repo already enabled."
+        return
+    fi
+
+    echo "[INFO] Enabling multilib repository..."
+    sudo sed -i '/^\#\[multilib\]/,/Include/s/^#//' "$conf"
+}
+
+enable_multilib
+
 # updating system
 sudo pacman -Syu --noconfirm
 
@@ -19,11 +34,15 @@ else
 fi
 
 check_packages() {
+    local all_pkgs
     local valid_pkgs=()
     local missing_pkgs=()
 
+    # one big list of available packages
+    all_pkgs=$(yay -Slq)
+
     for pkg in "$@"; do
-        if yay -Si "$pkg" &>/dev/null; then
+        if grep -qx "$pkg" <<< "$all_pkgs"; then
             valid_pkgs+=("$pkg")
         else
             missing_pkgs+=("$pkg")
@@ -46,7 +65,7 @@ PROGRAMS=(
   acpi alsa-plugins alsa-utils amd-ucode arandr arch-install-scripts baobab base base-devel
   batsignal bc bind blueman bluez bluez-utils bottom brightnessctl brillo catppuccin-gtk-theme-mocha
   clang composer curl dhcpcd dhcping dialog discord dmenu dmidecode dolphin dosfstools dunst
-  e2fsprogs efibootmgr fastfetch fd feh firefox fzf gdb gimp git gnome-keyring google-gemini-cli grub
+  e2fsprogs efibootmgr fastfetch fd feh firefox fzf gdb gimp git gnome-keyring grub
   haveged htop i3-wm i3blocks i3lock i3status imagemagick inetutils intellij-idea-ultimate-edition iw iwd
   java-environment-common java-runtime-common jdk-openjdk jdk21-openjdk julia kitty lazygit
   libreoffice-fresh lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lightdm-slick-greeter
