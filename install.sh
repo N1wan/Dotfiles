@@ -36,7 +36,7 @@ check_packages() {
         printf '%s\n' "${missing_pkgs[@]}" | tee -a ~/missing_packages.log
     fi
 
-    echo "${valid_pkgs[@]}"
+    printf '%s\n' "${valid_pkgs[@]}"
 }
 
 # -------------------------
