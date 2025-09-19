@@ -19,7 +19,7 @@ enable_multilib() {
 enable_multilib
 
 # updating system
-sudo pacman -Syu --noconfirm
+sudo pacman -Syyu --noconfirm
 
 # install yay if missing
 if ! command -v yay &>/dev/null; then
@@ -67,22 +67,25 @@ PROGRAMS=(
   clang composer curl dhcpcd dhcping dialog discord dmenu dmidecode dolphin dosfstools dunst
   e2fsprogs efibootmgr fastfetch fd feh firefox fzf gdb gimp git gnome-keyring grub
   haveged htop i3-wm i3blocks i3lock i3status imagemagick inetutils intellij-idea-ultimate-edition iw iwd
-  java-environment-common java-runtime-common jdk-openjdk jdk21-openjdk julia kitty lazygit
+  java-environment-common java-runtime-common jdk-openjdk jdk21-openjdk kitty lazygit
   libreoffice-fresh lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lightdm-slick-greeter
   lightdm-webkit2-greeter linux linux-firmware linux-headers lshw luarocks lutris man-db man-pages maven
-  micromamba-bin modelsim-intel-starter mokutil msmtp msmtp-mta mtr neovim net-tools network-manager-applet
+  micromamba-bin mokutil msmtp msmtp-mta mtr neovim net-tools network-manager-applet
   networkmanager nix nm-connection-editor nodejs nomacs npm ntfs-3g ntp nvidia-open nvidia-prime nvidia-settings
   openssh optimus-manager-git os-prober pa-applet-git pacman-contrib pacseek pamixer pavucontrol perl-authen-sasl
   perl-io-socket-ssl php pipewire pipewire-pulse powertop prismlauncher prismlauncher-themes-git
   python-conda python-eduvpn-client python-pip python-pynvim qemu-full qt5ct qt6ct
-  quartus-free-devinfo-cyclone10lp quartus-free-quartus reflector ripgrep rofi ruby rust scrot
+  quartus-free-devinfo-cyclone10lp quartus-free-quartus modelsim-intel-starter 
+  reflector ripgrep rofi ruby rust scrot
   signal-desktop steam sudo texinfo thunderbird tigervnc timg tldr tlp tlp-rdw tmux tor torbrowser-launcher
-  tree tree-sitter-cli unclutter unzip upower vi vim vlc wget wine wireplumber wireshark-qt xclip xdg-user-dirs
-  xorg-bdftopcf xorg-iceauth xorg-mkfontscale xorg-server xorg-sessreg xorg-setxkbmap xorg-smproxy
+  tree tree-sitter-cli unclutter unzip upower vi vim vlc wget wine wireplumber wireshark-qt 
+  xclip 
+  xdg-user-dirs xorg-bdftopcf xorg-iceauth xorg-mkfontscale xorg-server xorg-sessreg xorg-setxkbmap xorg-smproxy
   xorg-x11perf xorg-xbacklight xorg-xcmsdb xorg-xcursorgen xorg-xdpyinfo xorg-xdriinfo xorg-xev xorg-xgamma
   xorg-xhost xorg-xinit xorg-xinput xorg-xkbcomp xorg-xkbevd xorg-xkbprint xorg-xkbutils xorg-xkill
   xorg-xlsatoms xorg-xlsclients xorg-xpr xorg-xrandr xorg-xrefresh xorg-xset xorg-xsetroot xorg-xvinfo
-  xorg-xwd xorg-xwininfo xorg-xwud xsel yay zen-browser-bin zoxide zsh
+  xorg-xwd xorg-xwininfo xorg-xwud 
+  yay zen-browser-bin zoxide zsh
 )
 
 FONTS=(
@@ -128,9 +131,6 @@ else
     echo "[INFO] Shell already set to zsh."
 fi
 
-# enabling services
-sudo systemctl enable NetworkManager.service
-
 # install tmux packages
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
@@ -145,3 +145,11 @@ ln -sfn ~/Dotfiles/dunst ~/.config/dunst
 ln -sfn ~/Dotfiles/i3 ~/.config/i3
 ln -sfn ~/Dotfiles/fastfetch ~/.config/fastfetch
 ln -sfn ~/Dotfiles/kitty ~/.config/kitty
+# also to root
+sudo ln -sfn ~/Dotfiles/resources/current_background /usr/share/backgrounds/current_background
+sudo ln -sfn ~/Dotfiles/nvim /root/.config/nvim
+sudo ln -sfn ~/Dotfiles/lightdm/* /etc/lightdm/
+
+# enabling services
+sudo systemctl enable --now NetworkManager.service
+sudo systemctl enable --now lightdm.service
