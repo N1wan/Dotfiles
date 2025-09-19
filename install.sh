@@ -152,7 +152,8 @@ ln -sfn ~/Dotfiles/fastfetch ~/.config/fastfetch
 ln -sfn ~/Dotfiles/kitty ~/.config/kitty
 # also to root
 sudo mkdir -p /usr/share/backgrounds
-sudo cp -f ~/Dotfiles/resources/current_background /usr/share/backgrounds/current_background
+sudo rm /usr/share/backgrounds/current_background
+sudo cp ~/Dotfiles/resources/current_background /usr/share/backgrounds/current_background
 sudo ln -sfn ~/Dotfiles/lightdm/* /etc/lightdm/
 sudo mkdir -p /root/.config
 sudo ln -sfn ~/Dotfiles/nvim /root/.config/nvim
