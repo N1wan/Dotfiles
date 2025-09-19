@@ -132,7 +132,12 @@ else
 fi
 
 # install tmux packages
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+if [ -d "$HOME/.tmux/plugins/tpm" ]; then
+    echo "[INFO] tmux tpm already cloned."
+else
+  echo "[INFO] Cloning tpm..."
+  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
 
 # symlinking config files
 ln -sfn ~/Dotfiles/zsh/zshrc ~/.zshrc
