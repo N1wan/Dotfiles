@@ -151,9 +151,11 @@ ln -sfn ~/Dotfiles/i3 ~/.config/i3
 ln -sfn ~/Dotfiles/fastfetch ~/.config/fastfetch
 ln -sfn ~/Dotfiles/kitty ~/.config/kitty
 # also to root
+sudo mkdir -p /usr/share/backgrounds
 sudo ln -sfn ~/Dotfiles/resources/current_background /usr/share/backgrounds/current_background
-sudo ln -sfn ~/Dotfiles/nvim /root/.config/nvim
 sudo ln -sfn ~/Dotfiles/lightdm/* /etc/lightdm/
+sudo mkdir -p /root/.config
+sudo ln -sfn ~/Dotfiles/nvim /root/.config/nvim
 
 # enabling services
 sudo systemctl enable --now NetworkManager.service
