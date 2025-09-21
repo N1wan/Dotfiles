@@ -158,6 +158,27 @@ sudo ln -sfn ~/Dotfiles/lightdm/* /etc/lightdm/
 sudo mkdir -p /root/.config
 sudo ln -sfn ~/Dotfiles/nvim /root/.config/nvim
 
+enable_grub_theme() {
+    local conf="/etc/default/grub"
+
+    # If GRUB_THEME section is already enabled, do nothing
+    if grep -q "^GRUB_THEME" "$conf"; then
+        echo "[INFO] grub theme already enabled."
+        return
+    fi
+
+    echo "[INFO] Enabling grub theme..."
+
+    git clone https://github.com/catppuccin/grub.git /tmp/grub_catppuccin
+    pushd /tmp/grub_catppuccin >/dev/null
+    sudo cp -r src/* /usr/share/grub/themes/
+    popd >/dev/null
+    rm -rf /tmp/grub_catppuccin
+    sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/usr/share/grub/themes/catppuccin-mocha-grub-theme/theme.txt|' "$conf"
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+}
+enable_grub_theme
+
 # enabling services
 sudo systemctl enable --now NetworkManager.service
 sudo systemctl enable --now lightdm.service
