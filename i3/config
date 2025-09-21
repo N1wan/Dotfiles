@@ -27,7 +27,7 @@ exec --no-startup-id dunst
 exec --no-startup-id batsignal -b
 
 # dissable mouse if not moving
-exec --no-startup-id unclutter --timeout 1 --jitter 10 --ignore-scrolling --start-hidden
+exec --no-startup-id unclutter --timeout 1 --jitter 5 --ignore-scrolling --start-hidden
 
 # set the background
 exec --no-startup-id feh --bg-fill ~/Dotfiles/resources/current_background
