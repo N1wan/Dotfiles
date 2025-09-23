@@ -39,6 +39,12 @@
 - (git clone https://github.com/N1wan/Dotfiles.git) or if you have ssh access (git clone git@github.com:N1wan/Dotfiles.git)
 - (Dotfiles/install.sh)
 
+# dual booting
+mount the other operating systems bootloader partition.
+turn on os_prober in /etc/default/grub
+rerun grub-mkconfig -o /boot/grub/grub.cfg
+(make sure any time grub-mkconfig is ran, the other operating system is mounted)
+
 # git
 
 for the git config make sure to add a ./private file next to the ./config file like this:
@@ -50,12 +56,7 @@ in this private file put something like:
 [user]
     email = <your@email>
 [sendemail]
-    smtpserver = smtp.googlemail.com
-    smtpencryption = tls
-    smtpserverport = 587
     smtpuser = <your@email>
-[credential]
-    helper = store
 
 # tmux
 

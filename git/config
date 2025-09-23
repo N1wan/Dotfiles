@@ -8,3 +8,9 @@
 	defaultBranch = main
 [fetch]
 	prune = true
+[sendemail]
+    smtpserver = smtp.googlemail.com
+    smtpencryption = tls
+    smtpserverport = 587
+[credential]
+    helper = store
