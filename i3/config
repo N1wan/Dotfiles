@@ -38,7 +38,7 @@ exec_always --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "li
 exec_always --no-startup-id xinput set-prop "SYNA32D3:00 06CB:CED1 Touchpad" "libinput Disable While Typing Enabled" 0
 
 # swap escape and caps lock
-exec --no-startup-id setxkbmap -option caps:escape
+exec_always --no-startup-id setxkbmap -option caps:escape
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
