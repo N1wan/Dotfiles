@@ -19,7 +19,7 @@ exec_always --no-startup-id blueman-applet
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
 
 # set monitor on hdmi to QHD and 144hz
-exec --no-startup-id xrandr --output HDMI-0 --mode 2560x1440 --rate 144.00
+exec_always --no-startup-id xrandr --output HDMI-0 --mode 2560x1440 --rate 144.00
 
 # notification sender
 exec --no-startup-id dunst
