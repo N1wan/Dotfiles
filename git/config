@@ -1,9 +1,11 @@
 [include]
 	path = ./private
 [user]
-	name = N1wan
+	name = Niwan van den Berch van Heemstede
 [core]
 	editor = nvim
+[format]
+    signoff = true
 [init]
 	defaultBranch = main
 [fetch]
