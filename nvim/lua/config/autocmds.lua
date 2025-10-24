@@ -6,6 +6,15 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "c", "cpp", "h", "hpp" },
+  callback = function()
+    vim.bo.tabstop = 8
+    vim.bo.shiftwidth = 8
+    vim.bo.expandtab = false
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
   pattern = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
   callback = function()
     vim.bo.tabstop = 2
