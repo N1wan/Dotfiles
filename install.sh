@@ -65,8 +65,6 @@ PROGRAMS=(
     lutris nvidia-settings pavucontrol prismlauncher prismlauncher-themes-git 
     python-conda python-eduvpn-client rofi signal-desktop steam 
     thunderbird tigervnc torbrowser-launcher vlc zen-browser-bin
-    # quartus-free-devinfo-cyclone10lp quartus-free-quartus modelsim-intel-starter 
-    # intellij-idea-ultimate-edition
 )
 
 FONTS=(
@@ -78,7 +76,6 @@ FONTS=(
 
 DISPLAY_MANAGERS=( 
     lightdm lightdm-gtk-greeter lightdm-slick-greeter
-    # lightdm-webkit2-greeter lightdm-gtk-greeter-settings
 )
 
 WINDOW_MANAGERS=( 
