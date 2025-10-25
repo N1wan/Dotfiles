@@ -53,6 +53,10 @@ rerun grub-mkconfig -o /boot/grub/grub.cfg
 
 # git
 
+to create an ssh key:
+ssh-keygen -t ed25519 -C "your_email@example.com"
+then add it in github
+
 for the git config make sure to add a ./private file next to the ./config file like this:
 git
 ├── config
