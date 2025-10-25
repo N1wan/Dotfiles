@@ -167,6 +167,8 @@ sudo ln -sfn ~/Dotfiles/lightdm/* /etc/lightdm/
 sudo mkdir -p /root/.config
 sudo ln -sfn ~/Dotfiles/nvim /root/.config/nvim
 
+chmod --recursive o+rx ~/Dotfiles/lightdm/*
+
 enable_grub_theme() {
     local conf="/etc/default/grub"
 
