@@ -38,6 +38,7 @@ fi
 # -------------------------
 
 DEVELOPMENT=(
+    docker docker-compose
     java-environment-common java-runtime-common jdk-openjdk 
     jdk21-openjdk maven nodejs npm python-pip ruby rust
 )
@@ -190,6 +191,21 @@ enable_grub_theme() {
 }
 enable_grub_theme
 
+if getent group docker >/dev/null; then
+    if groups "$USER" | grep -qw docker; then
+        echo "[INFO] User '$USER' already in docker group."
+    else
+        echo "[INFO] Adding user '$USER' to docker group..."
+        sudo usermod -aG docker "$USER"
+        echo "[INFO] You may need to log out and back in for changes to take effect."
+    fi
+else
+    echo "[INFO] Creating docker group and adding user '$USER'..."
+    sudo groupadd docker
+    sudo usermod -aG docker "$USER"
+    echo "[INFO] You may need to log out and back in for changes to take effect."
+fi
+
 # enabling services
 sudo systemctl enable --now tlp.service
 sudo systemctl mask systemd-rfkill.service
@@ -197,4 +213,5 @@ sudo systemctl mask systemd-rfkill.socket
 sudo systemctl enable --now NetworkManager.service
 sudo systemctl enable --now ntpd.service
 sudo systemctl enable --now lightdm.service
+sudo systemctl enable --now docker.socket
 systemctl enable --now --user wireplumber.service
