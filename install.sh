@@ -45,8 +45,8 @@ DEVELOPMENT=(
 SYSTEM=(
     base base-devel amd-ucode bluez acpi alsa-utils alsa-plugins 
     dhcpcd dosfstools e2fsprogs efibootmgr gnome-keyring grub 
-    linux linux-firmware linux-headers networkmanager ntp nvidia-open 
-    openssh optimus-manager-git os-prober pipewire pipewire-pulse 
+    linux linux-firmware linux-headers networkmanager ntp 
+    openssh os-prober pipewire pipewire-pulse 
     qt5ct qt6ct sudo tlp tor wireplumber xdg-user-dirs xorg
 )
 
