@@ -63,7 +63,7 @@ TOOLS=(
 
 PROGRAMS=(
     arandr baobab discord dolphin gimp kitty libreoffice-fresh 
-    lutris nvidia-settings pavucontrol prismlauncher prismlauncher-themes-git 
+    lutris pavucontrol prismlauncher prismlauncher-themes-git 
     python-eduvpn-client qbittorrent rofi signal-desktop steam 
     thunderbird tigervnc torbrowser-launcher vlc zen-browser-bin
 )
@@ -92,41 +92,19 @@ ALL_PACKAGES=(
     "${SYSTEM[@]}"
     "${TOOLS[@]}"
     "${FONTS[@]}"
-    "${DISPLAY_MANAGER[@]}"
-    "${WINDOW_MANAGER[@]}"
+    "${DISPLAY_MANAGERS[@]}"
+    "${WINDOW_MANAGERS[@]}"
 )
 
 # -------------------------
-# filter + install
+# install
 # -------------------------
-
-check_packages() {
-    local all_pkgs
-    local valid_pkgs=()
-    local missing_pkgs=()
-
-    # one big list of available packages
-    all_pkgs=$(yay -Slq)
-
-    for pkg in "$@"; do
-        if grep -qx "$pkg" <<< "$all_pkgs"; then
-            valid_pkgs+=("$pkg")
-        else
-            missing_pkgs+=("$pkg")
-        fi
-    done
-
-    printf '%s\n' "${valid_pkgs[@]}"
+yay -S --noconfirm --needed "${ALL_PACKAGES[@]}" || {
+  echo "[WARN] Some packages failed. Retrying individually..."
+  for pkg in "${ALL_PACKAGES[@]}"; do
+      yay -S --noconfirm --needed "$pkg" || echo "[ERROR] Failed to install $pkg"
+  done
 }
-
-VALID_PACKAGES=($(check_packages "${ALL_PACKAGES[@]}"))
-
-if ((${#VALID_PACKAGES[@]} > 0)); then
-    yay -S --noconfirm --needed --batchinstall "${VALID_PACKAGES[@]}"
-else
-    echo "[ERROR] No valid packages found. Check your package list."
-    exit 1
-fi
 
 # change shell (only if not already zsh)
 if [ "$SHELL" != "/usr/bin/zsh" ]; then
