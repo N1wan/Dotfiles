@@ -63,7 +63,7 @@ TOOLS=(
 PROGRAMS=(
     arandr baobab discord dolphin gimp kitty libreoffice-fresh 
     lutris nvidia-settings pavucontrol prismlauncher prismlauncher-themes-git 
-    python-eduvpn-client rofi signal-desktop steam 
+    python-eduvpn-client qbittorrent rofi signal-desktop steam 
     thunderbird tigervnc torbrowser-launcher vlc zen-browser-bin
 )
 
