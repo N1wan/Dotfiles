@@ -147,6 +147,8 @@ fi
 ln -sfn ~/Dotfiles/xorg/xprofile ~/.xprofile
 ln -sfn ~/Dotfiles/zsh/zshrc ~/.zshrc
 ln -sfn ~/Dotfiles/zsh/p10k.zsh ~/.p10k.zsh
+ln -sfn ~/Dotfiles/qt/qt5ct ~/.config/qt5ct
+ln -sfn ~/Dotfiles/qt/qt6ct ~/.config/qt6ct
 ln -sfn ~/Dotfiles/rofi ~/.config/rofi
 ln -sfn ~/Dotfiles/nvim ~/.config/nvim
 ln -sfn ~/Dotfiles/git ~/.config/git
@@ -156,6 +158,7 @@ ln -sfn ~/Dotfiles/i3 ~/.config/i3
 ln -sfn ~/Dotfiles/fastfetch ~/.config/fastfetch
 ln -sfn ~/Dotfiles/kitty ~/.config/kitty
 # also to root
+sudo ln -sfn ~/Dotfiles/environment/global /etc/environment
 sudo mkdir -p /usr/share/backgrounds
 sudo rm -f /usr/share/backgrounds/current_background
 sudo cp ~/Dotfiles/resources/current_background /usr/share/backgrounds/current_background
