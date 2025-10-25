@@ -88,9 +88,10 @@ WINDOW_MANAGERS=(
 # -------------------------
 
 ALL_PACKAGES=(
-    "${PROGRAMS[@]}"
+    "${DEVELOPMENT[@]}"
     "${SYSTEM[@]}"
     "${TOOLS[@]}"
+    "${PROGRAMS[@]}"
     "${FONTS[@]}"
     "${DISPLAY_MANAGERS[@]}"
     "${WINDOW_MANAGERS[@]}"
