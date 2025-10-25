@@ -44,10 +44,11 @@ DEVELOPMENT=(
 )
 
 SYSTEM=(
+    lib32-mesa mesa nvidia-open lib32-nvidia-utils nvidia-utils 
     base base-devel amd-ucode bluez acpi alsa-utils alsa-plugins 
     dhcpcd dosfstools e2fsprogs efibootmgr gnome-keyring grub 
     linux linux-firmware linux-headers networkmanager ntp 
-    openssh os-prober pipewire pipewire-pulse 
+    openssh os-prober pipewire pipewire-pulse xf86-video-nouveau
     qt5ct qt6ct sudo tlp tor wireplumber xdg-user-dirs xorg
 )
 
