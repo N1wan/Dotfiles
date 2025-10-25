@@ -147,7 +147,7 @@ sudo ln -sfn ~/Dotfiles/lightdm/* /etc/lightdm/
 sudo mkdir -p /root/.config
 sudo ln -sfn ~/Dotfiles/nvim /root/.config/nvim
 
-chmod --recursive o+rx ~/Dotfiles/lightdm/*
+chmod --recursive a+rx ~/Dotfiles/lightdm/*
 
 enable_grub_theme() {
     local conf="/etc/default/grub"
@@ -191,6 +191,6 @@ sudo systemctl mask systemd-rfkill.service
 sudo systemctl mask systemd-rfkill.socket
 sudo systemctl enable --now NetworkManager.service
 sudo systemctl enable --now ntpd.service
-sudo systemctl enable --now lightdm.service
 sudo systemctl enable --now docker.socket
 systemctl enable --now --user wireplumber.service
+sudo systemctl enable --now lightdm.service
