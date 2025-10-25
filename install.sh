@@ -56,14 +56,14 @@ TOOLS=(
     pamixer reflector scrot tree-sitter-cli unclutter upower
 
     yay xclip zsh zoxide blueman batsignal bc brillo curl
-    fastfetch gdb git htop lazygit neovim pacseek qemu-full 
+    fastfetch feh gdb git htop lazygit neovim pacseek qemu-full 
     ripgrep timg tldr tmux tree unzip vi vim wget wine
 )
 
 PROGRAMS=(
     arandr baobab discord dolphin gimp kitty libreoffice-fresh 
     lutris nvidia-settings pavucontrol prismlauncher prismlauncher-themes-git 
-    python-conda python-eduvpn-client rofi signal-desktop steam 
+    python-eduvpn-client rofi signal-desktop steam 
     thunderbird tigervnc torbrowser-launcher vlc zen-browser-bin
 )
 
@@ -157,8 +157,9 @@ ln -sfn ~/Dotfiles/fastfetch ~/.config/fastfetch
 ln -sfn ~/Dotfiles/kitty ~/.config/kitty
 # also to root
 sudo mkdir -p /usr/share/backgrounds
-sudo rm /usr/share/backgrounds/current_background
+sudo rm -f /usr/share/backgrounds/current_background
 sudo cp ~/Dotfiles/resources/current_background /usr/share/backgrounds/current_background
+sudo mkdir -p /etc/lightdm/
 sudo ln -sfn ~/Dotfiles/lightdm/* /etc/lightdm/
 sudo mkdir -p /root/.config
 sudo ln -sfn ~/Dotfiles/nvim /root/.config/nvim

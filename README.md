@@ -1,6 +1,11 @@
 # install instructions
 
 - ip link
+    - (connect to the internet)
+    - iwctl device list
+    - iwctl station DEVICE scan
+    - iwctl station DEVICE get-networks
+    - iwctl station DEVICE connect SSID
 - ping ping.archlinux.org
 - timedatectl
 - cfdisk
@@ -34,10 +39,11 @@
 - make a user (useradd -m -G wheel user)
 - set a password for the user (passwd user)
 - switch user into the newly made one (su user)
+- cd ~
 - sudo systemctl enable --now NetworkManager.service
-- (cd ~)
+- connect to a network (nmtui)
 - (git clone https://github.com/N1wan/Dotfiles.git) or if you have ssh access (git clone git@github.com:N1wan/Dotfiles.git)
-- (Dotfiles/install.sh)
+- Dotfiles/install.sh
 
 # dual booting
 mount the other operating systems bootloader partition.
