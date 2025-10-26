@@ -43,9 +43,13 @@ DEVELOPMENT=(
     jdk21-openjdk maven nodejs npm python-pip ruby rust
 )
 
+DRIVERS=(
+    lib32-mesa mesa nvidia-open lib32-nvidia-utils nvidia-utils
+    nvidia-settings amd-ucode
+)
+
 SYSTEM=(
-    lib32-mesa mesa nvidia-open lib32-nvidia-utils nvidia-utils 
-    base base-devel amd-ucode bluez acpi alsa-utils alsa-plugins 
+    base base-devel bluez acpi alsa-utils alsa-plugins 
     dhcpcd dosfstools e2fsprogs efibootmgr gnome-keyring grub 
     linux linux-firmware linux-headers networkmanager ntp 
     openssh os-prober pipewire pipewire-pulse xf86-video-nouveau
@@ -90,6 +94,7 @@ WINDOW_MANAGERS=(
 
 ALL_PACKAGES=(
     "${DEVELOPMENT[@]}"
+    "${DRIVERS[@]}"
     "${SYSTEM[@]}"
     "${TOOLS[@]}"
     "${PROGRAMS[@]}"
@@ -174,6 +179,8 @@ enable_grub_theme() {
 }
 enable_grub_theme
 
+# groups
+# docker group:
 if getent group docker >/dev/null; then
     if groups "$USER" | grep -qw docker; then
         echo "[INFO] User '$USER' already in docker group."
@@ -186,6 +193,21 @@ else
     echo "[INFO] Creating docker group and adding user '$USER'..."
     sudo groupadd docker
     sudo usermod -aG docker "$USER"
+    echo "[INFO] You may need to log out and back in for changes to take effect."
+fi
+# video group:
+if getent group video >/dev/null; then
+    if groups "$USER" | grep -qw video; then
+        echo "[INFO] User '$USER' already in video group."
+    else
+        echo "[INFO] Adding user '$USER' to video group..."
+        sudo usermod -aG video "$USER"
+        echo "[INFO] You may need to log out and back in for changes to take effect."
+    fi
+else
+    echo "[INFO] Creating video group and adding user '$USER'..."
+    sudo groupadd video
+    sudo usermod -aG video "$USER"
     echo "[INFO] You may need to log out and back in for changes to take effect."
 fi
 
