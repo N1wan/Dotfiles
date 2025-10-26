@@ -79,9 +79,9 @@ bindsym XF86AudioMute exec "pamixer -t; pkill -RTMIN+10 i3blocks"
 
 # control brightness
 # brightness up
-bindsym XF86MonBrightnessUp exec sudo brillo -q -u 150000 -A 10
+bindsym XF86MonBrightnessUp exec brillo -q -u 150000 -A 10
 # brightness up
-bindsym XF86MonBrightnessDown exec sudo brillo -q -u 150000 -U 10
+bindsym XF86MonBrightnessDown exec brillo -q -u 150000 -U 10
 
 # change focus
 bindsym $mod+h focus left
