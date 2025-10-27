@@ -227,6 +227,7 @@ sudo systemctl enable --now tlp.service
 sudo systemctl mask systemd-rfkill.service
 sudo systemctl mask systemd-rfkill.socket
 sudo systemctl enable --now NetworkManager.service
+sudo systemctl enable --now bluetooth.service
 sudo systemctl enable --now ntpd.service
 sudo systemctl enable --now docker.socket
 systemctl enable --now --user wireplumber.service
