@@ -153,12 +153,18 @@ sudo mkdir -p /etc/lightdm/
 sudo ln -sfn ~/Dotfiles/lightdm/* /etc/lightdm/
 sudo mkdir -p /root/.config
 sudo ln -sfn ~/Dotfiles/nvim /root/.config/nvim
+sudo mkdir -p /etc/X11/xorg.conf.d/
+sudo ln -sfn ~/Dotfiles/Xorg/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
 
 # make lightdm work
 chmod o+rx ~/Dotfiles/lightdm/*
 chmod o+rx ~/Dotfiles/lightdm
 chmod o+rx ~/Dotfiles
 chmod o+rx ~
+
+# make Xorg work
+chmod o+rx ~/Dotfiles/Xorg/*
+chmod o+rx ~/Dotfiles/Xorg
 
 # make screenshots work
 mkdir -p ~/Pictures/Screenshots
