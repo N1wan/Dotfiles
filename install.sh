@@ -141,7 +141,7 @@ ln -sfn ~/Dotfiles/git ~/.config/git
 ln -sfn ~/Dotfiles/tmux ~/.config/tmux
 ln -sfn ~/Dotfiles/dunst ~/.config/dunst
 ln -sfn ~/Dotfiles/i3 ~/.config/i3
-ln -sfn ~/Dotfiles/session ~/.config/session
+ln -sfn ~/Dotfiles/session/* ~/.config/session
 ln -sfn ~/Dotfiles/fastfetch ~/.config/fastfetch
 ln -sfn ~/Dotfiles/kitty ~/.config/kitty
 # also to root
