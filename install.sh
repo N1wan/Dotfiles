@@ -141,6 +141,7 @@ ln -sfn ~/Dotfiles/git ~/.config/git
 ln -sfn ~/Dotfiles/tmux ~/.config/tmux
 ln -sfn ~/Dotfiles/dunst ~/.config/dunst
 ln -sfn ~/Dotfiles/i3 ~/.config/i3
+ln -sfn ~/Dotfiles/session ~/.config/session
 ln -sfn ~/Dotfiles/fastfetch ~/.config/fastfetch
 ln -sfn ~/Dotfiles/kitty ~/.config/kitty
 # also to root
@@ -153,10 +154,14 @@ sudo ln -sfn ~/Dotfiles/lightdm/* /etc/lightdm/
 sudo mkdir -p /root/.config
 sudo ln -sfn ~/Dotfiles/nvim /root/.config/nvim
 
+# make lightdm work
 chmod o+rx ~/Dotfiles/lightdm/*
 chmod o+rx ~/Dotfiles/lightdm
 chmod o+rx ~/Dotfiles
 chmod o+rx ~
+
+# make screenshots work
+mkdir -p ~/Pictures/Screenshots
 
 enable_grub_theme() {
     local conf="/etc/default/grub"
