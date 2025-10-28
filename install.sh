@@ -61,7 +61,7 @@ TOOLS=(
     man-db man-pages network-manager-applet pacman-contrib 
     pamixer reflector scrot tree-sitter-cli unclutter upower
 
-    yay xclip zsh zoxide blueman batsignal bc brillo curl
+    yay xclip zsh zoxide blueman batsignal bc brillo bottom curl
     fastfetch feh gdb git htop lazygit neovim pacseek qemu-full 
     ripgrep timg tldr tmux tree unzip vi vim wget wine
 )
