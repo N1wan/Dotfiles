@@ -1,22 +1,27 @@
 #!/bin/bash
+set -euo pipefail
 
-# exit on error
-set -e
+if ! command -v sudo &>/dev/null; then
+    echo "[ERROR] sudo not found. Install it first."
+    exit 1
+fi
+sudo -v
 
-enable_multilib() {
-    local conf="/etc/pacman.conf"
-
-    # If [multilib] section is already enabled, do nothing
-    if grep -q "^\[multilib\]" "$conf"; then
-        echo "[INFO] multilib repo already enabled."
-        return
-    fi
-
+# enable multilib
+if ! grep -q "^\[multilib\]" /etc/pacman.conf; then
     echo "[INFO] Enabling multilib repository..."
-    sudo sed -i '/^\#\[multilib\]/,/Include/s/^#//' "$conf"
-}
+    sudo sed -i '/\[multilib\]/,/Include/{s/^#//}' /etc/pacman.conf
+    sudo pacman -Sy
+fi
 
-enable_multilib
+# Add hooks to mkinitcpio.conf
+CURRENT_HOOKS=$(grep -E '^HOOKS=' "/etc/mkinitcpio.conf" | sed 's/[[:space:]]*$//')
+DESIRED_HOOKS='HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block filesystems resume fsck)'
+# Replace only if different
+if [[ "$CURRENT_HOOKS" != "$DESIRED_HOOKS" ]]; then
+    echo "[INFO] Updating HOOKS line in /etc/mkinitcpio.conf"
+    sudo sed -i -E "s|^HOOKS=.*|$DESIRED_HOOKS|" "/etc/mkinitcpio.conf"
+fi
 
 # updating system
 sudo pacman -Syyu --noconfirm
@@ -29,8 +34,6 @@ if ! command -v yay &>/dev/null; then
     makepkg -si --noconfirm
     popd >/dev/null
     rm -rf /tmp/yay
-else
-    echo "[INFO] yay already installed."
 fi
 
 # -------------------------
@@ -107,26 +110,22 @@ ALL_PACKAGES=(
 # install
 # -------------------------
 yay -S --noconfirm --needed "${ALL_PACKAGES[@]}" || {
-  echo "[WARN] Some packages failed. Retrying individually..."
-  for pkg in "${ALL_PACKAGES[@]}"; do
-      yay -S --noconfirm --needed "$pkg" || echo "[ERROR] Failed to install $pkg"
-  done
+    echo "[WARN] Some packages failed. Retrying individually..."
+    for pkg in "${ALL_PACKAGES[@]}"; do
+        yay -S --noconfirm --needed "$pkg" || echo "[ERROR] Failed to install $pkg"
+    done
 }
 
 # change shell (only if not already zsh)
 if [ "$SHELL" != "/usr/bin/zsh" ]; then
     echo "[INFO] Changing shell to zsh..."
     chsh -s /usr/bin/zsh
-else
-    echo "[INFO] Shell already set to zsh."
 fi
 
 # install tmux packages
-if [ -d "$HOME/.tmux/plugins/tpm" ]; then
-    echo "[INFO] tmux tpm already cloned."
-else
-  echo "[INFO] Cloning tpm..."
-  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    echo "[INFO] Cloning tpm..."
+    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 fi
 
 # symlinking config files
@@ -175,7 +174,6 @@ enable_grub_theme() {
 
     # If GRUB_THEME section is already enabled, do nothing
     if grep -q "^GRUB_THEME" "$conf"; then
-        echo "[INFO] grub theme already enabled."
         return
     fi
 
@@ -191,37 +189,23 @@ enable_grub_theme() {
 }
 enable_grub_theme
 
-# groups
-# docker group:
-if getent group docker >/dev/null; then
-    if groups "$USER" | grep -qw docker; then
-        echo "[INFO] User '$USER' already in docker group."
-    else
-        echo "[INFO] Adding user '$USER' to docker group..."
-        sudo usermod -aG docker "$USER"
-        echo "[INFO] You may need to log out and back in for changes to take effect."
+add_user_to_group() {
+    local group="$1"
+
+    # create group if it doesn't exist
+    if ! getent group "$group" >/dev/null; then
+        echo "[INFO] Creating '$group' group..."
+        sudo groupadd "$group"
     fi
-else
-    echo "[INFO] Creating docker group and adding user '$USER'..."
-    sudo groupadd docker
-    sudo usermod -aG docker "$USER"
-    echo "[INFO] You may need to log out and back in for changes to take effect."
-fi
-# video group:
-if getent group video >/dev/null; then
-    if groups "$USER" | grep -qw video; then
-        echo "[INFO] User '$USER' already in video group."
-    else
-        echo "[INFO] Adding user '$USER' to video group..."
-        sudo usermod -aG video "$USER"
-        echo "[INFO] You may need to log out and back in for changes to take effect."
+
+    # add user to group if not already a member
+    if ! groups "$USER" | grep -qw "$group"; then
+        echo "[INFO] Adding user '$USER' to '$group' group..."
+        sudo usermod -aG "$group" "$USER"
     fi
-else
-    echo "[INFO] Creating video group and adding user '$USER'..."
-    sudo groupadd video
-    sudo usermod -aG video "$USER"
-    echo "[INFO] You may need to log out and back in for changes to take effect."
-fi
+}
+add_user_to_group docker
+add_user_to_group video
 
 # enabling services
 sudo systemctl enable --now tlp.service
