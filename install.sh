@@ -21,6 +21,7 @@ DESIRED_HOOKS='HOOKS=(base udev autodetect microcode modconf kms keyboard keymap
 if [[ "$CURRENT_HOOKS" != "$DESIRED_HOOKS" ]]; then
     echo "[INFO] Updating HOOKS line in /etc/mkinitcpio.conf"
     sudo sed -i -E "s|^HOOKS=.*|$DESIRED_HOOKS|" "/etc/mkinitcpio.conf"
+    sudo mkinitcpio -P
 fi
 
 # updating system
@@ -36,10 +37,7 @@ if ! command -v yay &>/dev/null; then
     rm -rf /tmp/yay
 fi
 
-# -------------------------
-# categories
-# -------------------------
-
+# Define packages in their correct category
 DEVELOPMENT=(
     docker docker-compose
     java-environment-common java-runtime-common jdk-openjdk 
@@ -91,10 +89,7 @@ WINDOW_MANAGERS=(
     i3-wm i3blocks 
 )
 
-# -------------------------
-# combine categories
-# -------------------------
-
+# Combine packages
 ALL_PACKAGES=(
     "${DEVELOPMENT[@]}"
     "${DRIVERS[@]}"
@@ -106,9 +101,7 @@ ALL_PACKAGES=(
     "${WINDOW_MANAGERS[@]}"
 )
 
-# -------------------------
 # install
-# -------------------------
 yay -S --noconfirm --needed "${ALL_PACKAGES[@]}" || {
     echo "[WARN] Some packages failed. Retrying individually..."
     for pkg in "${ALL_PACKAGES[@]}"; do
@@ -127,6 +120,37 @@ if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
     echo "[INFO] Cloning tpm..."
     git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 fi
+
+# Enable the GRUB_THEME
+if ! grep -q "^GRUB_THEME" "/etc/default/grub"; then
+    echo "[INFO] Enabling grub theme..."
+
+    git clone https://github.com/catppuccin/grub.git /tmp/grub_catppuccin
+    pushd /tmp/grub_catppuccin >/dev/null
+    sudo cp -r src/* /usr/share/grub/themes/
+    popd >/dev/null
+    rm -rf /tmp/grub_catppuccin
+    sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/usr/share/grub/themes/catppuccin-mocha-grub-theme/theme.txt|' "/etc/default/grub"
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+fi
+
+add_user_to_group() {
+    local group="$1"
+
+    # create group if it doesn't exist
+    if ! getent group "$group" >/dev/null; then
+        echo "[INFO] Creating '$group' group..."
+        sudo groupadd "$group"
+    fi
+
+    # add user to group if not already a member
+    if ! groups "$USER" | grep -qw "$group"; then
+        echo "[INFO] Adding user '$USER' to '$group' group..."
+        sudo usermod -aG "$group" "$USER"
+    fi
+}
+add_user_to_group docker
+add_user_to_group video
 
 # symlinking config files
 ln -sfn ~/Dotfiles/xorg/xprofile ~/.xprofile
@@ -168,44 +192,6 @@ chmod o+rx ~/Dotfiles/Xorg
 
 # make screenshots work
 mkdir -p ~/Pictures/Screenshots
-
-enable_grub_theme() {
-    local conf="/etc/default/grub"
-
-    # If GRUB_THEME section is already enabled, do nothing
-    if grep -q "^GRUB_THEME" "$conf"; then
-        return
-    fi
-
-    echo "[INFO] Enabling grub theme..."
-
-    git clone https://github.com/catppuccin/grub.git /tmp/grub_catppuccin
-    pushd /tmp/grub_catppuccin >/dev/null
-    sudo cp -r src/* /usr/share/grub/themes/
-    popd >/dev/null
-    rm -rf /tmp/grub_catppuccin
-    sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/usr/share/grub/themes/catppuccin-mocha-grub-theme/theme.txt|' "$conf"
-    sudo grub-mkconfig -o /boot/grub/grub.cfg
-}
-enable_grub_theme
-
-add_user_to_group() {
-    local group="$1"
-
-    # create group if it doesn't exist
-    if ! getent group "$group" >/dev/null; then
-        echo "[INFO] Creating '$group' group..."
-        sudo groupadd "$group"
-    fi
-
-    # add user to group if not already a member
-    if ! groups "$USER" | grep -qw "$group"; then
-        echo "[INFO] Adding user '$USER' to '$group' group..."
-        sudo usermod -aG "$group" "$USER"
-    fi
-}
-add_user_to_group docker
-add_user_to_group video
 
 # enabling services
 sudo systemctl enable --now tlp.service
