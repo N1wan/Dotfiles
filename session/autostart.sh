@@ -21,7 +21,7 @@ fi
 
 # Set monitor resolution and refresh rate
 # Detect any connected display(s)
-CONNECTED_OUTPUTS=$(xrandr | awk '/ connected/{print $1}')
+CONNECTED_OUTPUTS=$(xrandr | awk '/ connected/{print $1}' | grep -E '^HDMI|^DP')
 for OUTPUT in $CONNECTED_OUTPUTS; do
     # Extract all available mode lines for this output
     MODES=$(xrandr | awk -v out="$OUTPUT" '
