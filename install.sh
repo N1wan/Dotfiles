@@ -193,6 +193,9 @@ chmod o+rx ~/Dotfiles/Xorg
 # make screenshots work
 mkdir -p ~/Pictures/Screenshots
 
+# allow gnome-keyring-daemon to lock memory pages that store secrets
+sudo setcap cap_ipc_lock=+ep /usr/bin/gnome-keyring-daemon
+
 # enabling services
 sudo systemctl enable --now tlp.service
 sudo systemctl mask systemd-rfkill.service

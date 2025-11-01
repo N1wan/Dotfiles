@@ -14,9 +14,11 @@ run_once batsignal -b
 run_once unclutter --timeout 1 --jitter 5 --ignore-scrolling --start-hidden
 feh --bg-fill ~/Dotfiles/resources/current_background
 
-# Freedesktop secrets API (keyring daemon)
-if ! pgrep -x gnome-keyring-daemon >/dev/null 2>&1; then
-    eval $(/usr/bin/gnome-keyring-daemon --start --components=secrets)
+if ! pgrep -f gnome-keyring-daemon >/dev/null 2>&1; then
+    eval $(/usr/bin/gnome-keyring-daemon --start --components=secrets,ssh,gpg)
+    export SSH_AUTH_SOCK
+    export GPG_AGENT_INFO
+    export GNOME_KEYRING_CONTROL
 fi
 
 # Set monitor resolution and refresh rate
