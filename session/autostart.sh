@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+cd "$(dirname "$0")" || exit 1
 
 # Helper: start a process if not already running
 run_once() {
