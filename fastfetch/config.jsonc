@@ -2,8 +2,8 @@
 	"$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
 	"logo": {
 		"type": "auto",        // Logo type: auto, builtin, small, file, etc.
-		"source": "arch",      // Built-in logo name or file path
-		"width": 25,           // Width in characters (for image logos)
+		"source": "arch3",      // Built-in logo name or file path
+		"width": 20,           // Width in characters (for image logos)
 		"height": 1,          // Height in characters (for image logos)
 		"padding": {
 			"top": 1,          // Top padding
@@ -44,7 +44,7 @@
 	"modules": [
 		{
 			"type": "custom",
-			"format": "┌────────────────────── Hardware ──────────────────────┐",
+			"format": "┌─────────────────────── Hardware ───────────────────────┐",
 			"outputColor": "red"
 		},
 		{
@@ -62,7 +62,8 @@
 		{
 			"type": "gpu",
 			"key": "│ ├󰍛 GPU",
-			"keyColor": "green"
+			"keyColor": "green",
+            "format": "{vendor} {name}"
 		},
 		{
 			"type": "memory",
@@ -71,13 +72,13 @@
 		},
 		{
 			"type": "custom",
-			"format": "└──────────────────────────────────────────────────────┘",
+			"format": "└────────────────────────────────────────────────────────┘",
 			"outputColor": "red"
 		},
 		"break",
 		{
 			"type": "custom",
-			"format": "┌────────────────────── Software ──────────────────────┐",
+			"format": "┌─────────────────────── Software ───────────────────────┐",
 			"outputColor": "red"
 		},
 		{
@@ -140,12 +141,12 @@
 		},
 		{
 			"type": "custom",
-			"format": "└──────────────────────────────────────────────────────┘",
+			"format": "└────────────────────────────────────────────────────────┘",
 			"outputColor": "red"
 		},
 		{
 			"type": "custom",
-			"format": "               \u001b[90m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m "
+			"format": "                  \u001b[90m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m "
 		}
 	]
 }
