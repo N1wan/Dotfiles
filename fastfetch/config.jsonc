@@ -3,7 +3,7 @@
 	"logo": {
 		"type": "auto",        // Logo type: auto, builtin, small, file, etc.
 		"source": "arch3",      // Built-in logo name or file path
-		"width": 20,           // Width in characters (for image logos)
+		"width": 18,           // Width in characters (for image logos)
 		"height": 1,          // Height in characters (for image logos)
 		"padding": {
 			"top": 1,          // Top padding
@@ -143,10 +143,6 @@
 			"type": "custom",
 			"format": "└────────────────────────────────────────────────────────┘",
 			"outputColor": "red"
-		},
-		{
-			"type": "custom",
-			"format": "                  \u001b[90m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m "
 		}
 	]
 }
