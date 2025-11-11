@@ -1,7 +1,7 @@
 set $mod Mod4
 
 # Font
-font pango:JetBrainsMono Nerd Font 8
+font pango:JetBrainsMono Nerd Font 11
 
 # Run general startup script
 exec_always --no-startup-id ~/.config/session/autostart.sh
