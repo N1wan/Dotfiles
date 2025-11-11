@@ -41,7 +41,7 @@ fi
 DEVELOPMENT=(
     docker docker-compose
     java-environment-common java-runtime-common jdk-openjdk 
-    jdk21-openjdk maven nodejs npm python-pip ruby rust
+    jdk21-openjdk maven nodejs npm python-pip ruby rustup
 )
 
 DRIVERS=(
@@ -68,7 +68,7 @@ TOOLS=(
 )
 
 PROGRAMS=(
-    arandr baobab discord dolphin gimp kitty libreoffice-fresh 
+    arandr baobab discord dolphin gimp kitty libreoffice-fresh localsend
     lutris pavucontrol prismlauncher prismlauncher-themes-git 
     python-eduvpn-client qbittorrent rofi signal-desktop steam 
     thunderbird tigervnc torbrowser-launcher vlc zen-browser-bin
@@ -195,6 +195,9 @@ mkdir -p ~/Pictures/Screenshots
 
 # allow gnome-keyring-daemon to lock memory pages that store secrets
 sudo setcap cap_ipc_lock=+ep /usr/bin/gnome-keyring-daemon
+
+# automatically configure xorg
+nvidia-xconfig
 
 # enabling services
 sudo systemctl enable --now tlp.service
