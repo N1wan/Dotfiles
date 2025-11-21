@@ -8,6 +8,7 @@ run_once() {
     fi
 }
 
+run_once picom
 run_once nm-applet
 run_once blueman-applet
 run_once dunst

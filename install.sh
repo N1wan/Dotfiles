@@ -159,6 +159,7 @@ ln -sfn ~/Dotfiles/zsh/p10k.zsh ~/.p10k.zsh
 ln -sfn ~/Dotfiles/qt/qt5ct ~/.config/qt5ct
 ln -sfn ~/Dotfiles/qt/qt6ct ~/.config/qt6ct
 ln -sfn ~/Dotfiles/rofi ~/.config/rofi
+ln -sfn ~/Dotfiles/picom ~/.config/picom
 ln -sfn ~/Dotfiles/nvim ~/.config/nvim
 ln -sfn ~/Dotfiles/git ~/.config/git
 ln -sfn ~/Dotfiles/tmux ~/.config/tmux
