@@ -22,9 +22,9 @@ bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 bindsym $mod+Shift+q kill
 
 # Screenshot keybinds
-bindsym Print exec scrot $HOME/Pictures/Screenshots/`date +%Y-%m-%d_%H:%M:%S`.png -e 'xclip -selection clipboard -t image/png -i $f'
-bindsym Shift+Print exec scrot --select $HOME/Pictures/Screenshots/`date +%Y-%m-%d_%H:%M:%S`.png -e 'xclip -selection clipboard -t image/png -i $f'
-bindsym Control+Print exec scrot --focused $HOME/Pictures/Screenshots/`date +%Y-%m-%d_%H:%M:%S`.png -e 'xclip -selection clipboard -t image/png -i $f'
+bindsym Print exec ~/.config/i3/scripts/screenshot.sh
+bindsym Shift+Print exec ~/.config/i3/scripts/screenshot.sh --select
+bindsym Control+Print exec ~/.config/i3/scripts/screenshot.sh --focused
 
 # Toggle i3 bar
 bindsym $mod+c bar mode toggle
