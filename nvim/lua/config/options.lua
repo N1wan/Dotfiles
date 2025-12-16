@@ -6,7 +6,7 @@ vim.o.relativenumber = true
 -- make the tab size 4
 vim.o.shiftwidth = 4
 vim.o.tabstop = 4
-vim.o.expandtab = true -- use spaces for tabs
+-- vim.o.expandtab = true -- use spaces for tabs
 
 -- Sync clipboard between OS and Neovim.
 -- Schedule the setting after `UiEnter` because it can increase startup-time.
