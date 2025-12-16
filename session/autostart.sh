@@ -13,6 +13,7 @@ run_once nm-applet
 run_once blueman-applet
 run_once dunst
 run_once batsignal -b
+run_once udiskie --automount --notify --tray
 run_once unclutter --timeout 1 --jitter 5 --ignore-scrolling --start-hidden
 feh --bg-fill ~/Dotfiles/resources/current_background
 
