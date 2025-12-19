@@ -198,7 +198,7 @@ mkdir -p ~/Pictures/Screenshots
 sudo setcap cap_ipc_lock=+ep /usr/bin/gnome-keyring-daemon
 
 # automatically configure xorg
-nvidia-xconfig
+sudo nvidia-xconfig
 
 # enabling services
 sudo systemctl enable --now tlp.service
