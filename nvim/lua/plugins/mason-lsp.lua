@@ -11,6 +11,7 @@ return {
       "asm_lsp",
       "clangd",
       "cmake",
+      "gopls",
       "lua_ls",
       "vimls",
 	  "jdtls",
