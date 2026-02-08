@@ -39,6 +39,11 @@ bindsym XF86AudioMute exec "pamixer -t; pkill -RTMIN+10 i3blocks"
 bindsym XF86MonBrightnessUp exec brillo -q -u 150000 -A 10
 bindsym XF86MonBrightnessDown exec brillo -q -u 150000 -U 10
 
+# Redshift controls
+bindsym $mod+F3 exec ~/.config/i3/scripts/redshift.sh up
+bindsym $mod+F2 exec ~/.config/i3/scripts/redshift.sh down
+bindsym $mod+F1 exec ~/.config/i3/scripts/redshift.sh reset
+
 # Focus movement
 bindsym $mod+h focus left
 bindsym $mod+j focus down

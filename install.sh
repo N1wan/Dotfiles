@@ -64,7 +64,7 @@ TOOLS=(
 
     yay xclip zsh zoxide blueman batsignal bc brillo bottom curl
     fastfetch feh gdb git htop lazygit neovim pacseek qemu-full 
-    ripgrep timg tldr tmux tree unzip vi vim wget wine
+    ripgrep timg tldr tmux tree unzip vi vim wget wine redshift
 )
 
 PROGRAMS=(
@@ -153,7 +153,7 @@ add_user_to_group docker
 add_user_to_group video
 
 # symlinking config files
-ln -sfn ~/Dotfiles/xorg/xprofile ~/.xprofile
+ln -sfn ~/Dotfiles/Xorg/Xresources ~/.Xresources
 ln -sfn ~/Dotfiles/zsh/zshrc ~/.zshrc
 ln -sfn ~/Dotfiles/zsh/p10k.zsh ~/.p10k.zsh
 ln -sfn ~/Dotfiles/qt/qt5ct ~/.config/qt5ct
