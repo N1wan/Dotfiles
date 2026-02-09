@@ -10,7 +10,6 @@ return {
     ensure_installed = {
       "asm_lsp",
       "clangd",
-      "cmake",
       "gopls",
       "lua_ls",
       "vimls",
