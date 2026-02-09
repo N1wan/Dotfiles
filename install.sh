@@ -54,17 +54,19 @@ SYSTEM=(
     dhcpcd dosfstools e2fsprogs efibootmgr gnome-keyring grub 
     linux linux-firmware linux-headers networkmanager ntp 
     openssh os-prober pipewire pipewire-pulse xf86-video-nouveau
-    qt5ct qt6ct sudo tlp tor wireplumber xdg-user-dirs xorg
+    qt5ct qt6ct sudo tlp tor wireplumber xdg-user-dirs xorg sassc
 )
 
 TOOLS=(
     bluez-utils arch-install-scripts clang dunst fzf luarocks 
     man-db man-pages network-manager-applet pacman-contrib 
     pamixer reflector scrot tree-sitter-cli unclutter upower
+	gnome-themes-extra
 
     yay xclip zsh zoxide blueman batsignal bc brillo bottom curl
     fastfetch feh gdb git htop lazygit neovim pacseek qemu-full 
-    ripgrep timg tldr tmux tree unzip vi vim wget wine redshift
+    ripgrep timg tldr tmux tree unzip vi vim wget wine redshift 
+	gtk-engine-murrine
 )
 
 PROGRAMS=(
@@ -162,6 +164,9 @@ ln -sfn ~/Dotfiles/rofi ~/.config/rofi
 ln -sfn ~/Dotfiles/picom ~/.config/picom
 ln -sfn ~/Dotfiles/nvim ~/.config/nvim
 ln -sfn ~/Dotfiles/git ~/.config/git
+ln -sfn ~/Dotfiles/gtk/gtk4 ~/.config/'gtk-4.0'
+ln -sfn ~/Dotfiles/gtk/gtk3/themes ~/.themes
+ln -sfn ~/Dotfiles/gtk/gtk3/config ~/.config/'gtk-3.0'
 ln -sfn ~/Dotfiles/tmux ~/.config/tmux
 ln -sfn ~/Dotfiles/dunst ~/.config/dunst
 ln -sfn ~/Dotfiles/i3 ~/.config/i3
