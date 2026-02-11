@@ -8,6 +8,8 @@ STATE="$HOME/.cache/redshift-temp"
 TEMP=$(cat "$STATE")
 
 case "$1" in
+  refresh)
+    ;;
   up)
     TEMP=$((TEMP + STEP))
     ;;
@@ -23,7 +25,7 @@ esac
 
 # clamp
 [ "$TEMP" -gt 6500 ] && TEMP=6500
-[ "$TEMP" -lt 3000 ] && TEMP=3000
+[ "$TEMP" -lt 3500 ] && TEMP=3500
 
 echo "$TEMP" > "$STATE"
 redshift -P -O "$TEMP"

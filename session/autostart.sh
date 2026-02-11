@@ -8,6 +8,7 @@ run_once() {
     fi
 }
 
+../i3/scripts/redshift.sh refresh
 run_once picom
 run_once nm-applet
 run_once blueman-applet
