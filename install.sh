@@ -186,6 +186,12 @@ sudo ln -sfn ~/Dotfiles/nvim /root/.config/nvim
 sudo mkdir -p /etc/X11/xorg.conf.d/
 sudo ln -sfn ~/Dotfiles/Xorg/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
 
+# install zen profile if it doesn't exist yet
+if [ ! -d "$HOME/.config/zen" ]; then
+    echo "[INFO] installing zen profile..."
+    ./zen/reinstall.sh
+fi
+
 # make lightdm work
 chmod o+rx ~/Dotfiles/lightdm/*
 chmod o+rx ~/Dotfiles/lightdm

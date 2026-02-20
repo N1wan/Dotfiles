@@ -1,0 +1,12 @@
+user_pref("browser.aboutConfig.showWarning", false);
+user_pref("zen.glance.enabled", false);
+user_pref("zen.tabs.close-on-back-with-no-history", false);
+user_pref("zen.tabs.close-window-with-empty", false);
+user_pref("zen.tabs.show-newtab-vertical", false);
+user_pref("zen.tabs.vertical.right-side", true);
+user_pref("zen.theme.content-element-separation", 0);
+user_pref("zen.urlbar.behavior", "normal");
+user_pref("zen.welcome-screen.seen", true);
+user_pref("zen.watermark.enabled", false);
+user_pref("browser.tabs.insertAfterCurrent", true);
+
