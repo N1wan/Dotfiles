@@ -31,9 +31,9 @@ bindsym $mod+c bar mode toggle
 exec_always --no-startup-id i3-msg bar mode toggle
 
 # Audio controls + i3blocks refresh
-bindsym XF86AudioRaiseVolume exec "pamixer -i 5; pkill -RTMIN+10 i3blocks"
-bindsym XF86AudioLowerVolume exec "pamixer -d 5; pkill -RTMIN+10 i3blocks"
-bindsym XF86AudioMute exec "pamixer -t; pkill -RTMIN+10 i3blocks"
+bindsym XF86AudioRaiseVolume exec "pamixer -i 5; pkill -RTMIN+1 i3blocks"
+bindsym XF86AudioLowerVolume exec "pamixer -d 5; pkill -RTMIN+1 i3blocks"
+bindsym XF86AudioMute exec "pamixer -t; pkill -RTMIN+1 i3blocks"
 
 # Brightness controls
 bindsym XF86MonBrightnessUp exec brillo -q -u 150000 -A 10

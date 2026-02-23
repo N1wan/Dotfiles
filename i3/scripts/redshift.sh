@@ -19,6 +19,7 @@ case "$1" in
   reset)
     echo "$DEFAULT" > "$STATE"
     redshift -P -x
+	pkill -RTMIN+2 i3blocks
     exit 0
     ;;
 esac
@@ -29,4 +30,6 @@ esac
 
 echo "$TEMP" > "$STATE"
 redshift -P -O "$TEMP"
+
+pkill -RTMIN+2 i3blocks
 
