@@ -53,8 +53,9 @@ SYSTEM=(
     base base-devel bluez acpi alsa-utils alsa-plugins udiskie udisks2
     dhcpcd dosfstools e2fsprogs efibootmgr gnome-keyring grub 
     linux linux-firmware linux-headers networkmanager ntp 
-    openssh os-prober pipewire pipewire-pulse xf86-video-nouveau
-    qt5ct qt6ct sudo tlp tor wireplumber xdg-user-dirs xorg sassc
+    openssh os-prober pipewire pipewire-pulse pipewire-audio pipewire-alsa
+	xf86-video-nouveau qt5ct qt6ct sudo tlp tor wireplumber xdg-user-dirs
+	xorg sassc
 )
 
 TOOLS=(
@@ -221,4 +222,6 @@ sudo systemctl enable --now udisks2.service
 sudo systemctl enable --now ntpd.service
 sudo systemctl enable --now docker.socket
 systemctl enable --now --user wireplumber.service
+systemctl enable --now --user pipewire.service
+systemctl enable --now --user pipewire-pulse.service
 sudo systemctl enable --now lightdm.service
