@@ -71,3 +71,8 @@ in this private file put something like:
 # tmux
 
 install packages with prefix -> Shift+i
+
+# zen
+
+log into mozzilla account, add spaces, and set keybinds (toggle compact mode, switch spaces)
+
