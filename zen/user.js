@@ -9,4 +9,4 @@ user_pref("zen.urlbar.behavior", "normal");
 user_pref("zen.welcome-screen.seen", true);
 user_pref("zen.watermark.enabled", false);
 user_pref("browser.tabs.insertAfterCurrent", true);
-
+user_pref("zen.view.compact.show-sidebar-and-toolbar-on-hover", false);
