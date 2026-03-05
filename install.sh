@@ -55,7 +55,7 @@ SYSTEM=(
     linux linux-firmware linux-headers networkmanager ntp 
     openssh os-prober pipewire pipewire-pulse pipewire-audio pipewire-alsa
 	xf86-video-nouveau qt5ct qt6ct sudo tlp tor wireplumber xdg-user-dirs
-	xorg sassc
+	xorg sassc picom
 )
 
 TOOLS=(
