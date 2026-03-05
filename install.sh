@@ -175,6 +175,7 @@ mkdir -p ~/.config/session
 ln -sfn ~/Dotfiles/session/* ~/.config/session
 ln -sfn ~/Dotfiles/fastfetch ~/.config/fastfetch
 ln -sfn ~/Dotfiles/kitty ~/.config/kitty
+ln -sfn ~/Dotfiles/gdb ~/.config/gdb
 # also to root
 sudo ln -sfn ~/Dotfiles/environment/global /etc/environment
 sudo mkdir -p /usr/share/backgrounds
