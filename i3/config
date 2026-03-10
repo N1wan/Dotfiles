@@ -15,6 +15,7 @@ bindsym $mod+x exec dm-tool lock
 # Launch apps
 bindsym $mod+Return exec kitty
 bindsym $mod+b exec zen-browser
+bindsym $mod+v exec blueman-manager
 bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 
