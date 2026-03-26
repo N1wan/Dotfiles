@@ -42,6 +42,7 @@ DEVELOPMENT=(
     docker docker-compose
     java-environment-common java-runtime-common jdk-openjdk 
     jdk21-openjdk maven nodejs npm python-pip ruby rustup
+	valgrind
 )
 
 DRIVERS=(
