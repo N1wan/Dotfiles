@@ -8,7 +8,8 @@ run_once() {
     fi
 }
 
-../i3/scripts/redshift.sh refresh
+~/.config/i3/scripts/redshift.sh refresh
+run_once xss-lock --transfer-sleep-lock -- ~/.config/i3/scripts/lock.sh
 run_once picom
 run_once nm-applet
 run_once blueman-applet
@@ -25,6 +26,6 @@ if ! pgrep -f gnome-keyring-daemon >/dev/null 2>&1; then
     export GNOME_KEYRING_CONTROL
 fi
 
-./monitor_setup.sh
-./libinput_setup.sh
+~/.config/session/monitor_setup.sh
+~/.config/session/libinput_setup.sh
 

@@ -83,17 +83,6 @@ alias grep='grep --color'
 alias timg='timg -pk'
 alias lg='lazygit'
 alias zen='zen-browser'
-systemctl() {
-	case "$1" in
-		hibernate|suspend|suspend-then-hibernate|hybrid-sleep|hybrid-hibernate)
-			dm-tool lock
-			command systemctl "$@"
-			;;
-		*)
-			command systemctl "$@"
-			;;
-	esac
-}
 sudo() {
 	case "$1" in
 		ls)

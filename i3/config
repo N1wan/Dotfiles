@@ -9,8 +9,11 @@ exec_always --no-startup-id ~/.config/session/autostart.sh
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 
+# hibernate
+bindsym $mod+Shift+p exec systemctl hibernate
+
 # Lock screen
-bindsym $mod+x exec dm-tool lock
+bindsym $mod+x exec ~/.config/i3/scripts/lock.sh
 
 # Launch apps
 bindsym $mod+Return exec kitty
@@ -20,6 +23,7 @@ bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 
 # Kill focused window
+bindsym $mod+q kill
 bindsym $mod+Shift+q kill
 
 # Screenshot keybinds

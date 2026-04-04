@@ -63,7 +63,7 @@ TOOLS=(
     bluez-utils arch-install-scripts clang dunst fzf luarocks 
     man-db man-pages network-manager-applet pacman-contrib 
     pamixer reflector scrot tree-sitter-cli unclutter upower
-	gnome-themes-extra
+	gnome-themes-extra i3lock xss-lock
 
     yay xclip zsh zoxide blueman batsignal bc brillo bottom curl
     fastfetch feh gdb git htop lazygit neovim pacseek qemu-full 
@@ -90,7 +90,7 @@ DISPLAY_MANAGERS=(
 )
 
 WINDOW_MANAGERS=( 
-    i3-wm i3blocks 
+    i3-wm i3blocks
 )
 
 # Combine packages
@@ -178,6 +178,9 @@ ln -sfn ~/Dotfiles/fastfetch ~/.config/fastfetch
 ln -sfn ~/Dotfiles/kitty ~/.config/kitty
 ln -sfn ~/Dotfiles/gdb ~/.config/gdb
 # also to root
+sudo mkdir -p /etc/systemd/sleep.conf.d
+sudo ln -sfn ~/Dotfiles/systemd/sleep.conf.d/disable-sleep.conf /etc/systemd/sleep.conf.d/
+sudo ln -sfn ~/Dotfiles/systemd/logind.conf /etc/systemd/logind.conf
 sudo ln -sfn ~/Dotfiles/environment/global /etc/environment
 sudo mkdir -p /usr/share/backgrounds
 sudo rm -f /usr/share/backgrounds/current_background
@@ -215,6 +218,7 @@ sudo setcap cap_ipc_lock=+ep /usr/bin/gnome-keyring-daemon
 sudo nvidia-xconfig
 
 # enabling services
+sudo systemctl mask hybrid-sleep.target suspend-then-hibernate.target suspend.target # only hibernate is enabled
 sudo systemctl enable --now tlp.service
 sudo systemctl mask systemd-rfkill.service
 sudo systemctl mask systemd-rfkill.socket
