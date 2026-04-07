@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# set screen to go black only after half an hour
+xset s 0 0
+xset dpms 0 0 1800
+
 # Set monitor resolution and refresh rate
 # Detect any connected display(s)
 CONNECTED_OUTPUTS=$(xrandr | awk '/ connected/{print $1}' | grep -E '^HDMI|^DP|^eDP' || true)

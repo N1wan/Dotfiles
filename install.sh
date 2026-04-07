@@ -177,7 +177,7 @@ ln -sfn ~/Dotfiles/session/* ~/.config/session
 ln -sfn ~/Dotfiles/fastfetch ~/.config/fastfetch
 ln -sfn ~/Dotfiles/kitty ~/.config/kitty
 ln -sfn ~/Dotfiles/gdb ~/.config/gdb
-# also to root
+# also to root, note some things don't work when symlinked, so they are copied. if they are changed in dotfiles, you need to run this script again
 sudo mkdir -p /etc/systemd/sleep.conf.d
 sudo ln -sfn ~/Dotfiles/systemd/sleep.conf.d/disable-sleep.conf /etc/systemd/sleep.conf.d/
 sudo ln -sfn ~/Dotfiles/systemd/logind.conf /etc/systemd/logind.conf
@@ -204,6 +204,12 @@ chmod o+rx ~/Dotfiles/lightdm
 chmod o+rx ~/Dotfiles
 chmod o+rx ~
 
+# make systemd work
+chmod o+rx ~/Dotfiles/systemd/sleep.conf.d/*
+chmod o+rx ~/Dotfiles/systemd/sleep.conf.d
+chmod o+rx ~/Dotfiles/systemd/*
+chmod o+rx ~/Dotfiles/systemd
+
 # make Xorg work
 chmod o+rx ~/Dotfiles/Xorg/*
 chmod o+rx ~/Dotfiles/Xorg
@@ -218,7 +224,7 @@ sudo setcap cap_ipc_lock=+ep /usr/bin/gnome-keyring-daemon
 sudo nvidia-xconfig
 
 # enabling services
-sudo systemctl mask hybrid-sleep.target suspend-then-hibernate.target suspend.target # only hibernate is enabled
+sudo systemctl mask hybrid-sleep.target suspend-then-hibernate.target suspend.target
 sudo systemctl enable --now tlp.service
 sudo systemctl mask systemd-rfkill.service
 sudo systemctl mask systemd-rfkill.socket
