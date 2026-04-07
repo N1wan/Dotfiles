@@ -68,7 +68,7 @@ TOOLS=(
     yay xclip zsh zoxide blueman batsignal bc brillo bottom curl
     fastfetch feh gdb git htop lazygit neovim pacseek qemu-full 
     ripgrep timg tldr tmux tree unzip vi vim wget wine redshift 
-	gtk-engine-murrine
+	gtk-engine-murrine cloc
 )
 
 PROGRAMS=(
