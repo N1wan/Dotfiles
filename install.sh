@@ -237,3 +237,5 @@ systemctl enable --now --user wireplumber.service
 systemctl enable --now --user pipewire.service
 systemctl enable --now --user pipewire-pulse.service
 sudo systemctl enable --now lightdm.service
+
+echo "[INFO] install complete!"
