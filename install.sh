@@ -16,7 +16,7 @@ fi
 
 # Add hooks to mkinitcpio.conf
 CURRENT_HOOKS=$(grep -E '^HOOKS=' "/etc/mkinitcpio.conf" | sed 's/[[:space:]]*$//')
-DESIRED_HOOKS='HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block lvm2 filesystems resume fsck)'
+DESIRED_HOOKS='HOOKS=(base udev autodetect microcode modconf keyboard keymap consolefont block lvm2 filesystems resume fsck)'
 # Replace only if different
 if [[ "$CURRENT_HOOKS" != "$DESIRED_HOOKS" ]]; then
     echo "[INFO] Updating HOOKS line in /etc/mkinitcpio.conf"
@@ -46,16 +46,16 @@ DEVELOPMENT=(
 )
 
 DRIVERS=(
-    lib32-mesa mesa nvidia-open lib32-nvidia-utils nvidia-utils
-    nvidia-settings amd-ucode
+    lib32-mesa mesa nvidia-open nvidia-prime lib32-nvidia-utils nvidia-utils
+    nvidia-settings amd-ucode xf86-video-amdgpu
 )
 
 SYSTEM=(
     base base-devel bluez acpi alsa-utils alsa-plugins udiskie udisks2
     dhcpcd dosfstools e2fsprogs efibootmgr gnome-keyring grub lvm2
-    linux linux-firmware linux-headers networkmanager ntp 
+    linux linux-firmware linux-headers networkmanager ntp accountsservice
     openssh os-prober pipewire pipewire-pulse pipewire-audio pipewire-alsa
-	xf86-video-nouveau qt5ct qt6ct sudo tlp tor wireplumber xdg-user-dirs
+	qt5ct qt6ct sudo tlp tor wireplumber xdg-user-dirs
 	xorg sassc picom
 )
 
@@ -68,12 +68,12 @@ TOOLS=(
     yay xclip zsh zoxide blueman batsignal bc brillo bottom curl
     fastfetch feh gdb git htop lazygit neovim pacseek qemu-full 
     ripgrep timg tldr tmux tree unzip vi vim wget wine redshift 
-	gtk-engine-murrine cloc
+	gtk-engine-murrine cloc mingw-w64-gcc
 )
 
 PROGRAMS=(
     arandr baobab discord dolphin gimp kitty libreoffice-fresh localsend
-    lutris pavucontrol prismlauncher prismlauncher-themes-git 
+    lutris pavucontrol prismlauncher prismlauncher-themes-git rsync
     python-eduvpn-client qbittorrent rofi signal-desktop steam 
     thunderbird tigervnc torbrowser-launcher vlc zen-browser-bin
 )
@@ -116,7 +116,7 @@ yay -S --noconfirm --needed "${ALL_PACKAGES[@]}" || {
 # change shell (only if not already zsh)
 if [ "$SHELL" != "/usr/bin/zsh" ]; then
     echo "[INFO] Changing shell to zsh..."
-    chsh -s /usr/bin/zsh
+    sudo chsh -s $(which zsh) $USER
 fi
 
 # install tmux packages
@@ -195,7 +195,7 @@ sudo ln -sfn ~/Dotfiles/Xorg/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.c
 # install zen profile if it doesn't exist yet
 if [ ! -d "$HOME/.config/zen" ]; then
     echo "[INFO] installing zen profile..."
-    ./zen/reinstall.sh
+    ~/Dotfiles/zen/reinstall.sh
 fi
 
 # make lightdm work
@@ -220,14 +220,11 @@ mkdir -p ~/Pictures/Screenshots
 # allow gnome-keyring-daemon to lock memory pages that store secrets
 sudo setcap cap_ipc_lock=+ep /usr/bin/gnome-keyring-daemon
 
-# automatically configure xorg
-sudo nvidia-xconfig
-
 # enabling services
 sudo systemctl mask hybrid-sleep.target suspend-then-hibernate.target suspend.target
 sudo systemctl enable --now tlp.service
-sudo systemctl mask systemd-rfkill.service
 sudo systemctl mask systemd-rfkill.socket
+sudo systemctl mask systemd-rfkill.service
 sudo systemctl enable --now NetworkManager.service
 sudo systemctl enable --now bluetooth.service
 sudo systemctl enable --now udisks2.service
@@ -236,6 +233,8 @@ sudo systemctl enable --now docker.socket
 systemctl enable --now --user wireplumber.service
 systemctl enable --now --user pipewire.service
 systemctl enable --now --user pipewire-pulse.service
+sudo systemctl enable --now accounts-daemon.service
 sudo systemctl enable --now lightdm.service
 
 echo "[INFO] install complete!"
+
