@@ -22,6 +22,7 @@
     - lvcreate -L 16G vg0 -n swap (change the size to be what you want for swap)
     - lvcreate -l 100%FREE vg0 -n root
 - mkfs.ext4 /dev/root_partition
+    - for example: mkfs.ext4 /dev/vg0/root
 - mkfs.fat -F 32 /dev/efi_partition
 - mkswap /dev/swap_partition
 - mount /dev/root_partition /mnt
