@@ -8,7 +8,19 @@
     - iwctl station DEVICE connect SSID
 - ping ping.archlinux.org
 - timedatectl
-- cfdisk
+- if not using lvm
+    - cfdisk
+        - create an efi partition (approximately 3gb)
+        - create a swap partition (preferably same size as ram)
+        - create a root partition (the rest of the disk, you can also make it smaller and make another partition for /home)
+- if using lvm
+    - cfdisk
+        - create an efi partition (approximately 3gb)
+        - create one big lvm partition (the rest of the disk)
+    - pvcreate /dev/lvm_partition
+    - vgcreate vg0 /dev/lvm_partition
+    - lvcreate -L 16G vg0 -n swap (change the size to be what you want for swap)
+    - lvcreate -l 100%FREE vg0 -n root
 - mkfs.ext4 /dev/root_partition
 - mkfs.fat -F 32 /dev/efi_partition
 - mkswap /dev/swap_partition
@@ -16,7 +28,7 @@
 - mount --mkdir /dev/efi_partition /mnt/boot
 - swapon /dev/swap_partition
 - pacman -Sy
-- pacstrap -K /mnt base base-devel linux linux-firmware grub efibootmgr sudo networkmanager git vi vim
+- pacstrap -K /mnt base base-devel linux linux-firmware grub efibootmgr sudo networkmanager git vi vim lvm2
 - genfstab -U /mnt >> /mnt/etc/fstab
 - arch-chroot /mnt
 - ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
@@ -29,6 +41,9 @@
 - vim /etc/hostname
     - add your hostname
 - passwd
+- if using lvm
+    - vim /etc/default/grub 
+        - uncomment or add: GRUB_ENABLE_CRYPTODISK=y
 - grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 - grub-mkconfig -o /boot/grub/grub.cfg
 - exit
@@ -46,6 +61,7 @@
 - Dotfiles/install.sh
 
 # dual booting
+
 mount the other operating systems bootloader partition.
 turn on os_prober in /etc/default/grub
 rerun grub-mkconfig -o /boot/grub/grub.cfg

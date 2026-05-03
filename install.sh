@@ -16,7 +16,7 @@ fi
 
 # Add hooks to mkinitcpio.conf
 CURRENT_HOOKS=$(grep -E '^HOOKS=' "/etc/mkinitcpio.conf" | sed 's/[[:space:]]*$//')
-DESIRED_HOOKS='HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block filesystems resume fsck)'
+DESIRED_HOOKS='HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block lvm2 filesystems resume fsck)'
 # Replace only if different
 if [[ "$CURRENT_HOOKS" != "$DESIRED_HOOKS" ]]; then
     echo "[INFO] Updating HOOKS line in /etc/mkinitcpio.conf"
@@ -52,7 +52,7 @@ DRIVERS=(
 
 SYSTEM=(
     base base-devel bluez acpi alsa-utils alsa-plugins udiskie udisks2
-    dhcpcd dosfstools e2fsprogs efibootmgr gnome-keyring grub 
+    dhcpcd dosfstools e2fsprogs efibootmgr gnome-keyring grub lvm2
     linux linux-firmware linux-headers networkmanager ntp 
     openssh os-prober pipewire pipewire-pulse pipewire-audio pipewire-alsa
 	xf86-video-nouveau qt5ct qt6ct sudo tlp tor wireplumber xdg-user-dirs
