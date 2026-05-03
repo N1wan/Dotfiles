@@ -43,6 +43,9 @@
     - add your hostname
 - passwd
 - if using lvm
+    - vim /etc/mkinitcpio.conf
+        - add lvm2 to HOOKS before filesystems
+    - mkinitcpio -P
     - vim /etc/default/grub 
         - uncomment or add: GRUB_ENABLE_CRYPTODISK=y
 - grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
