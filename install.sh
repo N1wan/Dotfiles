@@ -14,13 +14,25 @@ if ! grep -q "^\[multilib\]" /etc/pacman.conf; then
     sudo pacman -Sy
 fi
 
-# Add hooks to mkinitcpio.conf
+needs_regen=false
+
+CURRENT_MODULES=$(grep -E '^MODULES=' "/etc/mkinitcpio.conf" | sed 's/[[:space:]]*$//')
+DESIRED_MODULES='MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)'
+if [[ "$CURRENT_MODULES" != "$DESIRED_MODULES" ]]; then
+    echo "[INFO] Updating MODULES line in /etc/mkinitcpio.conf"
+    sudo sed -i -E "s|^MODULES=.*|$DESIRED_MODULES|" /etc/mkinitcpio.conf
+    needs_regen=true
+fi
+
 CURRENT_HOOKS=$(grep -E '^HOOKS=' "/etc/mkinitcpio.conf" | sed 's/[[:space:]]*$//')
 DESIRED_HOOKS='HOOKS=(base udev autodetect microcode modconf keyboard keymap consolefont block lvm2 filesystems resume fsck)'
-# Replace only if different
 if [[ "$CURRENT_HOOKS" != "$DESIRED_HOOKS" ]]; then
     echo "[INFO] Updating HOOKS line in /etc/mkinitcpio.conf"
-    sudo sed -i -E "s|^HOOKS=.*|$DESIRED_HOOKS|" "/etc/mkinitcpio.conf"
+    sudo sed -i -E "s|^HOOKS=.*|$DESIRED_HOOKS|" /etc/mkinitcpio.conf
+    needs_regen=true
+fi
+
+if $needs_regen; then
     sudo mkinitcpio -P
 fi
 
@@ -47,7 +59,7 @@ DEVELOPMENT=(
 
 DRIVERS=(
     lib32-mesa mesa nvidia-open nvidia-prime lib32-nvidia-utils nvidia-utils
-    nvidia-settings amd-ucode xf86-video-amdgpu
+    nvidia-settings amd-ucode xf86-video-amdgpu nvidia-prime envycontrol
 )
 
 SYSTEM=(
@@ -123,6 +135,15 @@ fi
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
     echo "[INFO] Cloning tpm..."
     git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
+
+CURRENT_CMDLINE=$(grep -E '^GRUB_CMDLINE_LINUX_DEFAULT=' "/etc/default/grub" | sed 's/[[:space:]]*$//')
+DESIRED_CMDLINE='GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet nvidia-drm.modeset=1"'
+# Replace only if different
+if [[ "$CURRENT_CMDLINE" != "$DESIRED_CMDLINE" ]]; then
+    echo "[INFO] Updating CMDLINE line in /etc/default/grub"
+    sudo sed -i -E "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|$DESIRED_CMDLINE|" "/etc/default/grub"
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
 # Enable the GRUB_THEME
@@ -219,6 +240,9 @@ mkdir -p ~/Pictures/Screenshots
 
 # allow gnome-keyring-daemon to lock memory pages that store secrets
 sudo setcap cap_ipc_lock=+ep /usr/bin/gnome-keyring-daemon
+
+# switch to nvidia graphics (only works on machines with a MUX)
+sudo envycontrol -s nvidia
 
 # enabling services
 sudo systemctl mask hybrid-sleep.target suspend-then-hibernate.target suspend.target
