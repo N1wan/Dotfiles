@@ -241,8 +241,12 @@ mkdir -p ~/Pictures/Screenshots
 # allow gnome-keyring-daemon to lock memory pages that store secrets
 sudo setcap cap_ipc_lock=+ep /usr/bin/gnome-keyring-daemon
 
-# switch to nvidia graphics (only works on machines with a MUX)
-sudo envycontrol -s nvidia
+# switch to hybrid graphics for nvidia gpu's
+current_mode="$(envycontrol -q)"
+if [ "$current_mode" != "hybrid" ]; then
+    echo "[INFO] setting hybrid graphics for nvidia gpu's..."
+	sudo envycontrol -s hybrid --rtd3 3
+fi
 
 # enabling services
 sudo systemctl mask hybrid-sleep.target suspend-then-hibernate.target suspend.target

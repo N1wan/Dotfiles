@@ -17,7 +17,7 @@ bindsym $mod+x exec ~/.config/i3/scripts/lock.sh
 
 # Launch apps
 bindsym $mod+Return exec kitty
-bindsym $mod+b exec zen-browser
+bindsym $mod+b exec prime-run zen-browser
 bindsym $mod+v exec blueman-manager
 bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run
