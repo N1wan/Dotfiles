@@ -17,7 +17,7 @@ fi
 needs_regen=false
 
 CURRENT_MODULES=$(grep -E '^MODULES=' "/etc/mkinitcpio.conf" | sed 's/[[:space:]]*$//')
-DESIRED_MODULES='MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)'
+DESIRED_MODULES='MODULES=()'
 if [[ "$CURRENT_MODULES" != "$DESIRED_MODULES" ]]; then
     echo "[INFO] Updating MODULES line in /etc/mkinitcpio.conf"
     sudo sed -i -E "s|^MODULES=.*|$DESIRED_MODULES|" /etc/mkinitcpio.conf
@@ -200,8 +200,10 @@ ln -sfn ~/Dotfiles/kitty ~/.config/kitty
 ln -sfn ~/Dotfiles/gdb ~/.config/gdb
 # also to root, note some things don't work when symlinked, so they are copied. if they are changed in dotfiles, you need to run this script again
 sudo mkdir -p /etc/systemd/sleep.conf.d
-sudo ln -sfn ~/Dotfiles/systemd/sleep.conf.d/disable-sleep.conf /etc/systemd/sleep.conf.d/
-sudo ln -sfn ~/Dotfiles/systemd/logind.conf /etc/systemd/logind.conf
+sudo rm -f /etc/systemd/logind.conf
+sudo rm -f /etc/systemd/sleep.conf.d/disable-sleep.conf
+sudo cp -f ~/Dotfiles/systemd/logind.conf /etc/systemd
+sudo cp -f ~/Dotfiles/systemd/sleep.conf.d/disable-sleep.conf /etc/systemd/sleep.conf.d/
 sudo ln -sfn ~/Dotfiles/environment/global /etc/environment
 sudo mkdir -p /usr/share/backgrounds
 sudo rm -f /usr/share/backgrounds/current_background
@@ -220,20 +222,15 @@ if [ ! -d "$HOME/.config/zen" ]; then
 fi
 
 # make lightdm work
-chmod o+rx ~/Dotfiles/lightdm/*
-chmod o+rx ~/Dotfiles/lightdm
-chmod o+rx ~/Dotfiles
-chmod o+rx ~
-
-# make systemd work
-chmod o+rx ~/Dotfiles/systemd/sleep.conf.d/*
-chmod o+rx ~/Dotfiles/systemd/sleep.conf.d
-chmod o+rx ~/Dotfiles/systemd/*
-chmod o+rx ~/Dotfiles/systemd
+chmod a+rx ~/Dotfiles/lightdm/*
+chmod a+rx ~/Dotfiles/lightdm
+chmod a+rx ~/Dotfiles
+chmod a+rx ~/.config
+chmod a+rx ~
 
 # make Xorg work
-chmod o+rx ~/Dotfiles/Xorg/*
-chmod o+rx ~/Dotfiles/Xorg
+chmod a+rx ~/Dotfiles/Xorg/*
+chmod a+rx ~/Dotfiles/Xorg
 
 # make screenshots work
 mkdir -p ~/Pictures/Screenshots
@@ -250,6 +247,8 @@ fi
 
 # enabling services
 sudo systemctl mask hybrid-sleep.target suspend-then-hibernate.target suspend.target
+sudo systemctl enable --now nvidia-hibernate.service
+sudo systemctl restart systemd-logind.service
 sudo systemctl enable --now tlp.service
 sudo systemctl mask systemd-rfkill.socket
 sudo systemctl mask systemd-rfkill.service
