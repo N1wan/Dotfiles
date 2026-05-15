@@ -245,23 +245,54 @@ if [ "$current_mode" != "hybrid" ]; then
 	sudo envycontrol -s hybrid --rtd3 3
 fi
 
-# enabling services
-sudo systemctl mask hybrid-sleep.target suspend-then-hibernate.target suspend.target
-sudo systemctl enable --now nvidia-hibernate.service
-sudo systemctl restart systemd-logind.service
-sudo systemctl enable --now tlp.service
+enable_service() {
+    local unit="$1"
+    local user_flag="${2:-}"
+
+    if [[ -z "$unit" ]]; then
+        echo "No service provided"
+        return 1
+    fi
+
+    if [[ "$user_flag" == "--user" ]]; then
+        if ! systemctl --user is-enabled "$unit" &>/dev/null; then
+            echo "[+] Enabling $unit (user)"
+            systemctl --user enable --now "$unit"
+        fi
+    else
+        if ! systemctl is-enabled "$unit" &>/dev/null; then
+            echo "[+] Enabling $unit"
+            sudo systemctl enable --now "$unit"
+        fi
+    fi
+}
+
+# masking services
+sudo systemctl mask suspend.target
+sudo systemctl mask suspend-then-hibernate.target
+sudo systemctl mask hybrid-sleep.target
+
 sudo systemctl mask systemd-rfkill.socket
 sudo systemctl mask systemd-rfkill.service
-sudo systemctl enable --now NetworkManager.service
-sudo systemctl enable --now bluetooth.service
-sudo systemctl enable --now udisks2.service
-sudo systemctl enable --now ntpd.service
-sudo systemctl enable --now docker.socket
-systemctl enable --now --user wireplumber.service
-systemctl enable --now --user pipewire.service
-systemctl enable --now --user pipewire-pulse.service
-sudo systemctl enable --now accounts-daemon.service
-sudo systemctl enable --now lightdm.service
+
+# enabling services
+enable_service nvidia-hibernate.service
+enable_service systemd-logind.service
+sudo systemctl restart systemd-logind.service
+
+enable_service tlp.service
+enable_service NetworkManager.service
+enable_service bluetooth.service
+enable_service udisks2.service
+enable_service ntpd.service
+enable_service docker.socket
+enable_service accounts-daemon.service
+enable_service lightdm.service
+
+# user services
+enable_service wireplumber.service --user
+enable_service pipewire.service --user
+enable_service pipewire-pulse.service --user
 
 echo "[INFO] install complete!"
 
