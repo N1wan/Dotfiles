@@ -240,9 +240,9 @@ sudo setcap cap_ipc_lock=+ep /usr/bin/gnome-keyring-daemon
 
 # switch to hybrid graphics for nvidia gpu's
 current_mode="$(envycontrol -q)"
-if [ "$current_mode" != "hybrid" ]; then
-    echo "[INFO] setting hybrid graphics for nvidia gpu's..."
-	sudo envycontrol -s hybrid --rtd3 3
+if [ "$current_mode" != "nvidia" ]; then
+    echo "[INFO] setting nvidia graphics for nvidia gpu's..."
+	sudo envycontrol -s nvidia
 fi
 
 enable_service() {
