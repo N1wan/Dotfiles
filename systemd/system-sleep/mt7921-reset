@@ -1,0 +1,13 @@
+#!/bin/sh
+
+case "$1" in
+    post)
+        modprobe -r btusb
+        modprobe -r mt7921e
+
+        sleep 1
+
+        modprobe mt7921e
+        modprobe btusb
+        ;;
+esac

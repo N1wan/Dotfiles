@@ -199,19 +199,28 @@ ln -sfn ~/Dotfiles/fastfetch ~/.config/fastfetch
 ln -sfn ~/Dotfiles/kitty ~/.config/kitty
 ln -sfn ~/Dotfiles/gdb ~/.config/gdb
 # also to root, note some things don't work when symlinked, so they are copied. if they are changed in dotfiles, you need to run this script again
+#   systemd
 sudo mkdir -p /etc/systemd/sleep.conf.d
 sudo rm -f /etc/systemd/logind.conf
 sudo rm -f /etc/systemd/sleep.conf.d/disable-sleep.conf
 sudo cp -f ~/Dotfiles/systemd/logind.conf /etc/systemd
 sudo cp -f ~/Dotfiles/systemd/sleep.conf.d/disable-sleep.conf /etc/systemd/sleep.conf.d/
+sudo mkdir -p /usr/lib/systemd/system-sleep
+sudo rm -f /usr/lib/systemd/system-sleep/mt7921-reset
+sudo cp -f ~/Dotfiles/systemd/system-sleep/mt7921-reset /usr/lib/systemd/system-sleep
+#   environment
 sudo ln -sfn ~/Dotfiles/environment/global /etc/environment
+#   background
 sudo mkdir -p /usr/share/backgrounds
 sudo rm -f /usr/share/backgrounds/current_background
 sudo cp ~/Dotfiles/resources/current_background /usr/share/backgrounds/current_background
+#   lightdm
 sudo mkdir -p /etc/lightdm/
 sudo ln -sfn ~/Dotfiles/lightdm/* /etc/lightdm/
+#   nvim
 sudo mkdir -p /root/.config
 sudo ln -sfn ~/Dotfiles/nvim /root/.config/nvim
+#   X11
 sudo mkdir -p /etc/X11/xorg.conf.d/
 sudo ln -sfn ~/Dotfiles/Xorg/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
 
