@@ -66,8 +66,8 @@ SYSTEM=(
     base base-devel bluez acpi alsa-utils alsa-plugins udiskie udisks2
     dhcpcd dosfstools e2fsprogs efibootmgr gnome-keyring grub lvm2
     linux linux-firmware linux-headers networkmanager ntp accountsservice
-    openssh os-prober pipewire pipewire-pulse pipewire-audio pipewire-alsa
-	qt5ct qt6ct sudo tlp tor wireplumber xdg-user-dirs
+    openssh os-prober pipewire lib32-pipewire pipewire-pulse pipewire-audio
+	pipewire-alsa qt5ct qt6ct sudo tlp tor wireplumber xdg-user-dirs
 	xorg sassc picom
 )
 
