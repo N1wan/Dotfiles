@@ -10,3 +10,5 @@ user_pref("zen.welcome-screen.seen", true);
 user_pref("zen.watermark.enabled", false);
 user_pref("browser.tabs.insertAfterCurrent", true);
 user_pref("zen.view.compact.show-sidebar-and-toolbar-on-hover", false);
+user_pref("mousewheel.default.delta_multiplier_y", 50);
+user_pref("mousewheel.default.delta_multiplier_z", 25);
