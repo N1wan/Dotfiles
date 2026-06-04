@@ -2,16 +2,16 @@
 set -euo pipefail
 
 if ! command -v sudo &>/dev/null; then
-    echo "[ERROR] sudo not found. Install it first."
-    exit 1
+	echo "[ERROR] sudo not found. Install it first."
+	exit 1
 fi
 sudo -v
 
 # enable multilib
 if ! grep -q "^\[multilib\]" /etc/pacman.conf; then
-    echo "[INFO] Enabling multilib repository..."
-    sudo sed -i '/\[multilib\]/,/Include/{s/^#//}' /etc/pacman.conf
-    sudo pacman -Sy
+	echo "[INFO] Enabling multilib repository..."
+	sudo sed -i '/\[multilib\]/,/Include/{s/^#//}' /etc/pacman.conf
+	sudo pacman -Sy
 fi
 
 needs_regen=false
@@ -19,21 +19,21 @@ needs_regen=false
 CURRENT_MODULES=$(grep -E '^MODULES=' "/etc/mkinitcpio.conf" | sed 's/[[:space:]]*$//')
 DESIRED_MODULES='MODULES=()'
 if [[ "$CURRENT_MODULES" != "$DESIRED_MODULES" ]]; then
-    echo "[INFO] Updating MODULES line in /etc/mkinitcpio.conf"
-    sudo sed -i -E "s|^MODULES=.*|$DESIRED_MODULES|" /etc/mkinitcpio.conf
-    needs_regen=true
+	echo "[INFO] Updating MODULES line in /etc/mkinitcpio.conf"
+	sudo sed -i -E "s|^MODULES=.*|$DESIRED_MODULES|" /etc/mkinitcpio.conf
+	needs_regen=true
 fi
 
 CURRENT_HOOKS=$(grep -E '^HOOKS=' "/etc/mkinitcpio.conf" | sed 's/[[:space:]]*$//')
 DESIRED_HOOKS='HOOKS=(base udev autodetect microcode modconf keyboard keymap consolefont block lvm2 filesystems resume fsck)'
 if [[ "$CURRENT_HOOKS" != "$DESIRED_HOOKS" ]]; then
-    echo "[INFO] Updating HOOKS line in /etc/mkinitcpio.conf"
-    sudo sed -i -E "s|^HOOKS=.*|$DESIRED_HOOKS|" /etc/mkinitcpio.conf
-    needs_regen=true
+	echo "[INFO] Updating HOOKS line in /etc/mkinitcpio.conf"
+	sudo sed -i -E "s|^HOOKS=.*|$DESIRED_HOOKS|" /etc/mkinitcpio.conf
+	needs_regen=true
 fi
 
 if $needs_regen; then
-    sudo mkinitcpio -P
+	sudo mkinitcpio -P
 fi
 
 # updating system
@@ -41,141 +41,149 @@ sudo pacman -Syyu --noconfirm
 
 # install yay if missing
 if ! command -v yay &>/dev/null; then
-    echo "[INFO] Installing yay..."
-    git clone https://aur.archlinux.org/yay.git /tmp/yay
-    pushd /tmp/yay >/dev/null
-    makepkg -si --noconfirm
-    popd >/dev/null
-    rm -rf /tmp/yay
+	echo "[INFO] Installing yay..."
+	git clone https://aur.archlinux.org/yay.git /tmp/yay
+	pushd /tmp/yay >/dev/null
+	makepkg -si --noconfirm
+	popd >/dev/null
+	rm -rf /tmp/yay
 fi
 
 # Define packages in their correct category
 DEVELOPMENT=(
-    docker docker-compose
-    java-environment-common java-runtime-common jdk-openjdk 
-    jdk21-openjdk maven nodejs npm python-pip ruby rustup
+	docker docker-compose
+	java-environment-common java-runtime-common jdk-openjdk 
+	jdk21-openjdk maven nodejs npm python-pip ruby rustup
 	valgrind
 )
 
 DRIVERS=(
-    lib32-mesa mesa nvidia-open nvidia-prime lib32-nvidia-utils nvidia-utils
-    nvidia-settings amd-ucode xf86-video-amdgpu nvidia-prime envycontrol
+	lib32-mesa mesa nvidia-open nvidia-prime lib32-nvidia-utils nvidia-utils
+	nvidia-settings amd-ucode xf86-video-amdgpu nvidia-prime envycontrol
 )
 
 SYSTEM=(
-    base base-devel bluez acpi alsa-utils alsa-plugins udiskie udisks2
-    dhcpcd dosfstools e2fsprogs efibootmgr gnome-keyring grub lvm2
-    linux linux-firmware linux-headers networkmanager ntp accountsservice
-    openssh os-prober pipewire lib32-pipewire pipewire-pulse pipewire-audio
+	base base-devel bluez acpi alsa-utils alsa-plugins udiskie udisks2
+	dhcpcd dosfstools e2fsprogs efibootmgr gnome-keyring grub lvm2
+	linux linux-firmware linux-headers networkmanager ntp accountsservice
+	openssh os-prober pipewire lib32-pipewire pipewire-pulse pipewire-audio
 	pipewire-alsa qt5ct qt6ct sudo tlp tor wireplumber xdg-user-dirs
 	xorg sassc picom
 )
 
 TOOLS=(
-    bluez-utils arch-install-scripts clang dunst fzf luarocks 
-    man-db man-pages network-manager-applet pacman-contrib 
-    pamixer reflector scrot tree-sitter-cli unclutter upower
+	bluez-utils arch-install-scripts clang dunst fzf luarocks 
+	man-db man-pages network-manager-applet pacman-contrib 
+	pamixer reflector scrot tree-sitter-cli unclutter upower
 	gnome-themes-extra i3lock xss-lock
 
-    yay xclip zsh zoxide blueman batsignal bc brillo bottom curl
-    fastfetch feh gdb git htop lazygit neovim pacseek qemu-full 
-    ripgrep timg tldr tmux tree unzip vi vim wget wine redshift 
+	yay xclip zsh zoxide blueman batsignal bc brillo bottom curl
+	fastfetch feh gdb git htop lazygit neovim pacseek qemu-full 
+	ripgrep timg tldr tmux tree unzip vi vim wget wine redshift 
 	gtk-engine-murrine cloc mingw-w64-gcc
 )
 
 PROGRAMS=(
-    arandr baobab discord dolphin gimp kitty libreoffice-fresh localsend
-    lutris pavucontrol prismlauncher prismlauncher-themes-git rsync
-    python-eduvpn-client qbittorrent rofi signal-desktop steam 
-    thunderbird tigervnc torbrowser-launcher vlc zen-browser-bin
+	arandr baobab discord dolphin gimp kitty libreoffice-fresh localsend
+	lutris pavucontrol prismlauncher prismlauncher-themes-git rsync
+	python-eduvpn-client qbittorrent rofi signal-desktop steam 
+	thunderbird tigervnc torbrowser-launcher vlc zen-browser-bin
 )
 
 FONTS=(
-    noto-fonts noto-fonts-emoji papirus-icon-theme terminus-font
-    ttf-dejavu ttf-droid ttf-jetbrains-mono-nerd ttf-liberation
-    ttf-liberation-mono-nerd ttf-nerd-fonts-symbols-mono ttf-noto-nerd
-    ttf-roboto ttf-ubuntu-font-family
+	noto-fonts noto-fonts-emoji papirus-icon-theme terminus-font
+	ttf-dejavu ttf-droid ttf-jetbrains-mono-nerd ttf-liberation
+	ttf-liberation-mono-nerd ttf-nerd-fonts-symbols-mono ttf-noto-nerd
+	ttf-roboto ttf-ubuntu-font-family
+)
+
+PRINTING=(
+	cups ghostscript gsfonts foomatic-db-engine
+	brlaser-git brother-hll2350dw
+	system-config-printer
 )
 
 DISPLAY_MANAGERS=( 
-    lightdm lightdm-gtk-greeter lightdm-slick-greeter
+	lightdm lightdm-gtk-greeter lightdm-slick-greeter
 )
 
 WINDOW_MANAGERS=( 
-    i3-wm i3blocks
+	i3-wm i3blocks
 )
 
 # Combine packages
 ALL_PACKAGES=(
-    "${DEVELOPMENT[@]}"
-    "${DRIVERS[@]}"
-    "${SYSTEM[@]}"
-    "${TOOLS[@]}"
-    "${PROGRAMS[@]}"
-    "${FONTS[@]}"
-    "${DISPLAY_MANAGERS[@]}"
-    "${WINDOW_MANAGERS[@]}"
+	"${DEVELOPMENT[@]}"
+	"${DRIVERS[@]}"
+	"${SYSTEM[@]}"
+	"${TOOLS[@]}"
+	"${PROGRAMS[@]}"
+	"${FONTS[@]}"
+	"${PRINTING[@]}"
+	"${DISPLAY_MANAGERS[@]}"
+	"${WINDOW_MANAGERS[@]}"
 )
 
 # install
 yay -S --noconfirm --needed "${ALL_PACKAGES[@]}" || {
-    echo "[WARN] Some packages failed. Retrying individually..."
-    for pkg in "${ALL_PACKAGES[@]}"; do
-        yay -S --noconfirm --needed "$pkg" || echo "[ERROR] Failed to install $pkg"
-    done
+	echo "[WARN] Some packages failed. Retrying individually..."
+	for pkg in "${ALL_PACKAGES[@]}"; do
+		yay -S --noconfirm --needed "$pkg" || echo "[ERROR] Failed to install $pkg"
+	done
 }
 
 # change shell (only if not already zsh)
 if [ "$SHELL" != "/usr/bin/zsh" ]; then
-    echo "[INFO] Changing shell to zsh..."
-    sudo chsh -s $(which zsh) $USER
+	echo "[INFO] Changing shell to zsh..."
+	sudo chsh -s $(which zsh) $USER
 fi
 
 # install tmux packages
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
-    echo "[INFO] Cloning tpm..."
-    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+	echo "[INFO] Cloning tpm..."
+	git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 fi
 
 CURRENT_CMDLINE=$(grep -E '^GRUB_CMDLINE_LINUX_DEFAULT=' "/etc/default/grub" | sed 's/[[:space:]]*$//')
 DESIRED_CMDLINE='GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet nvidia-drm.modeset=1"'
 # Replace only if different
 if [[ "$CURRENT_CMDLINE" != "$DESIRED_CMDLINE" ]]; then
-    echo "[INFO] Updating CMDLINE line in /etc/default/grub"
-    sudo sed -i -E "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|$DESIRED_CMDLINE|" "/etc/default/grub"
-    sudo grub-mkconfig -o /boot/grub/grub.cfg
+	echo "[INFO] Updating CMDLINE line in /etc/default/grub"
+	sudo sed -i -E "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|$DESIRED_CMDLINE|" "/etc/default/grub"
+	sudo grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
 # Enable the GRUB_THEME
 if ! grep -q "^GRUB_THEME" "/etc/default/grub"; then
-    echo "[INFO] Enabling grub theme..."
+	echo "[INFO] Enabling grub theme..."
 
-    git clone https://github.com/catppuccin/grub.git /tmp/grub_catppuccin
-    pushd /tmp/grub_catppuccin >/dev/null
-    sudo cp -r src/* /usr/share/grub/themes/
-    popd >/dev/null
-    rm -rf /tmp/grub_catppuccin
-    sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/usr/share/grub/themes/catppuccin-mocha-grub-theme/theme.txt|' "/etc/default/grub"
-    sudo grub-mkconfig -o /boot/grub/grub.cfg
+	git clone https://github.com/catppuccin/grub.git /tmp/grub_catppuccin
+	pushd /tmp/grub_catppuccin >/dev/null
+	sudo cp -r src/* /usr/share/grub/themes/
+	popd >/dev/null
+	rm -rf /tmp/grub_catppuccin
+	sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME=/usr/share/grub/themes/catppuccin-mocha-grub-theme/theme.txt|' "/etc/default/grub"
+	sudo grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
 add_user_to_group() {
-    local group="$1"
+	local group="$1"
 
-    # create group if it doesn't exist
-    if ! getent group "$group" >/dev/null; then
-        echo "[INFO] Creating '$group' group..."
-        sudo groupadd "$group"
-    fi
+	# create group if it doesn't exist
+	if ! getent group "$group" >/dev/null; then
+		echo "[INFO] Creating '$group' group..."
+		sudo groupadd "$group"
+	fi
 
-    # add user to group if not already a member
-    if ! groups "$USER" | grep -qw "$group"; then
-        echo "[INFO] Adding user '$USER' to '$group' group..."
-        sudo usermod -aG "$group" "$USER"
-    fi
+	# add user to group if not already a member
+	if ! groups "$USER" | grep -qw "$group"; then
+		echo "[INFO] Adding user '$USER' to '$group' group..."
+		sudo usermod -aG "$group" "$USER"
+	fi
 }
 add_user_to_group docker
 add_user_to_group video
+add_user_to_group lp
 
 # symlinking config files
 ln -sfn ~/Dotfiles/Xorg/Xresources ~/.Xresources
@@ -228,8 +236,8 @@ sudo ln -sfn ~/Dotfiles/Xorg/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.c
 
 # install zen profile if it doesn't exist yet
 if [ ! -d "$HOME/.config/zen" ]; then
-    echo "[INFO] installing zen profile..."
-    ~/Dotfiles/zen/reinstall.sh
+	echo "[INFO] installing zen profile..."
+	~/Dotfiles/zen/reinstall.sh
 fi
 
 # make lightdm work
@@ -252,30 +260,30 @@ sudo setcap cap_ipc_lock=+ep /usr/bin/gnome-keyring-daemon
 # switch to hybrid graphics for nvidia gpu's
 current_mode="$(envycontrol -q)"
 if [ "$current_mode" != "nvidia" ]; then
-    echo "[INFO] setting nvidia graphics for nvidia gpu's..."
+	echo "[INFO] setting nvidia graphics for nvidia gpu's..."
 	sudo envycontrol -s nvidia
 fi
 
 enable_service() {
-    local unit="$1"
-    local user_flag="${2:-}"
+	local unit="$1"
+	local user_flag="${2:-}"
 
-    if [[ -z "$unit" ]]; then
-        echo "No service provided"
-        return 1
-    fi
+	if [[ -z "$unit" ]]; then
+		echo "No service provided"
+		return 1
+	fi
 
-    if [[ "$user_flag" == "--user" ]]; then
-        if ! systemctl --user is-enabled "$unit" &>/dev/null; then
-            echo "[+] Enabling $unit (user)"
-            systemctl --user enable --now "$unit"
-        fi
-    else
-        if ! systemctl is-enabled "$unit" &>/dev/null; then
-            echo "[+] Enabling $unit"
-            sudo systemctl enable --now "$unit"
-        fi
-    fi
+	if [[ "$user_flag" == "--user" ]]; then
+		if ! systemctl --user is-enabled "$unit" &>/dev/null; then
+			echo "[+] Enabling $unit (user)"
+			systemctl --user enable --now "$unit"
+		fi
+	else
+		if ! systemctl is-enabled "$unit" &>/dev/null; then
+			echo "[+] Enabling $unit"
+			sudo systemctl enable --now "$unit"
+		fi
+	fi
 }
 
 # masking services
@@ -291,6 +299,7 @@ enable_service nvidia-hibernate.service
 enable_service systemd-logind.service
 sudo systemctl restart systemd-logind.service
 
+enable_service cups.service
 enable_service tlp.service
 enable_service NetworkManager.service
 enable_service bluetooth.service
