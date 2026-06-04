@@ -198,6 +198,8 @@ ln -sfn ~/Dotfiles/session/* ~/.config/session
 ln -sfn ~/Dotfiles/fastfetch ~/.config/fastfetch
 ln -sfn ~/Dotfiles/kitty ~/.config/kitty
 ln -sfn ~/Dotfiles/gdb ~/.config/gdb
+ln -sfn ~/Dotfiles/pipewire ~/.config/pipewire
+ln -sfn ~/Dotfiles/wireplumber ~/.config/wireplumber
 # also to root, note some things don't work when symlinked, so they are copied. if they are changed in dotfiles, you need to run this script again
 #   systemd
 sudo mkdir -p /etc/systemd/sleep.conf.d
