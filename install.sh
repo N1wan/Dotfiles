@@ -78,7 +78,7 @@ TOOLS=(
 	gnome-themes-extra i3lock xss-lock
 
 	yay xclip zsh zoxide blueman batsignal bc brillo bottom curl
-	fastfetch feh gdb git htop lazygit neovim pacseek qemu-full 
+	fastfetch feh gdb gf2 git htop lazygit neovim pacseek qemu-full 
 	ripgrep timg tldr tmux tree unzip vi vim wget wine redshift 
 	gtk-engine-murrine cloc mingw-w64-gcc
 )
