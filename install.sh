@@ -68,7 +68,7 @@ SYSTEM=(
 	linux linux-firmware linux-headers networkmanager ntp accountsservice
 	openssh os-prober pipewire lib32-pipewire pipewire-pulse pipewire-audio
 	pipewire-alsa qt5ct qt6ct sudo tlp tor wireplumber xdg-user-dirs
-	xorg sassc picom
+	xorg sassc picom power-profiles-daemon
 )
 
 TOOLS=(
@@ -263,6 +263,8 @@ if [ "$current_mode" != "nvidia" ]; then
 	echo "[INFO] setting nvidia graphics for nvidia gpu's..."
 	sudo envycontrol -s nvidia
 fi
+
+powerprofilesctl set performance
 
 enable_service() {
 	local unit="$1"
