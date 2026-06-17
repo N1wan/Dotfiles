@@ -61,7 +61,7 @@
 - cd ~
 - sudo systemctl enable --now NetworkManager.service
 - connect to a network (nmtui)
-- (git clone https://github.com/N1wan/Dotfiles.git) or if you have ssh access (git clone git@github.com:N1wan/Dotfiles.git)
+- (git clone --recurse-submodules https://github.com/N1wan/Dotfiles.git) or if you have ssh access (git clone --recurse-submodules git@github.com:N1wan/Dotfiles.git)
 - Dotfiles/install.sh
 
 # dual booting

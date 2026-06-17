@@ -1,0 +1,3 @@
+[submodule "boomer"]
+	path = boomer/repo
+	url = https://github.com/tsoding/boomer

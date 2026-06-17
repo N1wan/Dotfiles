@@ -53,7 +53,7 @@ fi
 DEVELOPMENT=(
 	docker docker-compose
 	java-environment-common java-runtime-common jdk-openjdk 
-	jdk21-openjdk maven nodejs npm python-pip ruby rustup
+	jdk21-openjdk maven nodejs npm nim python-pip ruby rustup
 	valgrind
 )
 
@@ -203,6 +203,8 @@ ln -sfn ~/Dotfiles/dunst ~/.config/dunst
 ln -sfn ~/Dotfiles/i3 ~/.config/i3
 mkdir -p ~/.config/session
 ln -sfn ~/Dotfiles/session/* ~/.config/session
+mkdir -p ~/.config/boomer
+ln -sfn ~/Dotfiles/boomer/config ~/.config/boomer
 ln -sfn ~/Dotfiles/fastfetch ~/.config/fastfetch
 ln -sfn ~/Dotfiles/kitty ~/.config/kitty
 ln -sfn ~/Dotfiles/gdb ~/.config/gdb
@@ -233,6 +235,12 @@ sudo ln -sfn ~/Dotfiles/nvim /root/.config/nvim
 #   X11
 sudo mkdir -p /etc/X11/xorg.conf.d/
 sudo ln -sfn ~/Dotfiles/Xorg/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
+
+# build boomer
+pushd ~/Dotfiles/boomer/repo > /dev/null
+nim c src/boomer.nim &> /dev/null
+cp -f src/boomer ~/.config/boomer/
+popd > /dev/null
 
 # install zen profile if it doesn't exist yet
 if [ ! -d "$HOME/.config/zen" ]; then

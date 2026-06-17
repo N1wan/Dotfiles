@@ -19,6 +19,7 @@ bindsym $mod+x exec ~/.config/i3/scripts/lock.sh
 bindsym $mod+Return exec kitty
 bindsym $mod+b exec zen-browser
 bindsym $mod+v exec blueman-manager
+bindsym $mod+z exec ~/.config/i3/scripts/run_once.sh ~/.config/boomer/boomer
 bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 
