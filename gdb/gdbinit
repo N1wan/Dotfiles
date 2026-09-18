@@ -1,4 +1,4 @@
 set debuginfod enabled off
 
-source ~/.config/gdb/gef-2026.01.py
+#source ~/.config/gdb/gef-2026.01.py
 

@@ -8,8 +8,8 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "c", "cpp", "h", "hpp" },
   callback = function()
-    vim.bo.tabstop = 8
-    vim.bo.shiftwidth = 8
+    vim.bo.tabstop = 4
+    vim.bo.shiftwidth = 4
     vim.bo.expandtab = false
   end,
 })

@@ -111,6 +111,10 @@ WINDOW_MANAGERS=(
 	i3-wm i3blocks
 )
 
+LATEX=(
+	texlive-basic texlive-latexextra texlive-binextra zathura zathura-pdf-mupdf texlab
+)
+
 # Combine packages
 ALL_PACKAGES=(
 	"${DEVELOPMENT[@]}"
@@ -122,6 +126,7 @@ ALL_PACKAGES=(
 	"${PRINTING[@]}"
 	"${DISPLAY_MANAGERS[@]}"
 	"${WINDOW_MANAGERS[@]}"
+	"${LATEX[@]}"
 )
 
 # install
