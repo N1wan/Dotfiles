@@ -15,6 +15,7 @@ return {
       "vimls",
       "jdtls",
       "texlab",
+      "ols",
     },
     automatic_installation = true,
   },
