@@ -192,6 +192,7 @@ add_user_to_group lp
 
 # symlinking config files
 ln -sfn ~/Dotfiles/Xorg/Xresources ~/.Xresources
+ln -sfn ~/Dotfiles/Xorg/xprofile ~/.xprofile
 ln -sfn ~/Dotfiles/zsh/zshrc ~/.zshrc
 ln -sfn ~/Dotfiles/zsh/p10k.zsh ~/.p10k.zsh
 ln -sfn ~/Dotfiles/qt/qt5ct ~/.config/qt5ct
