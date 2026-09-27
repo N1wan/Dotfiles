@@ -18,6 +18,7 @@ run_once batsignal -b
 run_once udiskie --automount --notify --tray
 run_once unclutter --timeout 1 --jitter 5 --ignore-scrolling --start-hidden
 feh --bg-fill ~/Dotfiles/resources/current_background
+xset dpms 0 0 0
 
 if ! pgrep -f gnome-keyring-daemon >/dev/null 2>&1; then
     eval $(/usr/bin/gnome-keyring-daemon --start --components=secrets,ssh,gpg)
