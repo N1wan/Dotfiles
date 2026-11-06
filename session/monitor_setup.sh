@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# set screen to go black only after half an hour
+# set screen to not go black
 xset s 0 0
-xset dpms 0 0 1800
+xset dpms 0 0 0
 
 # Set monitor resolution and refresh rate
 # Detect any connected display(s)
