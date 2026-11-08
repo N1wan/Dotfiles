@@ -75,6 +75,7 @@ zstyle ':completion:*' menu no
 export MANPAGER='nvim +Man!'
 
 # Aliases
+alias sudo='sudo '
 alias ls='ls --color'
 alias ll='ls -hla'
 alias clear='clear; fastfetch'
@@ -83,21 +84,6 @@ alias grep='grep --color'
 alias timg='timg -pk'
 alias lg='lazygit'
 alias zen='zen-browser'
-sudo() {
-	case "$1" in
-		ls)
-			shift
-			command sudo ls --color "$@"
-			;;
-		ll)
-			shift
-			command sudo ls --color -la "$@"
-			;;
-		*)
-			command sudo "$@"
-			;;
-	esac
-}
 
 # Shell integrations
 eval "$(fzf --zsh)"
