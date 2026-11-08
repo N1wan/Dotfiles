@@ -1,0 +1,10 @@
+# adds astrix for every char typed
+Defaults env_reset,pwfeedback
+# makes it so that you have to re-enter your password every 10 minutes
+Defaults timestamp_timeout=10
+# sets the timeout for the password prompt to be off
+Defaults passwd_timeout=0
+# sets the timeout to all processes with the same parent process ID (useful in tmux)
+Defaults timestamp_type=ppid
+# Upon entering an incorrect password, this will replace Sorry, try again. message with humorous insults.
+Defaults insults

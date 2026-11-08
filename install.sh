@@ -241,6 +241,9 @@ sudo ln -sfn ~/Dotfiles/nvim /root/.config/nvim
 #   X11
 sudo mkdir -p /etc/X11/xorg.conf.d/
 sudo ln -sfn ~/Dotfiles/Xorg/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
+# sudoers drop-in configuration
+sudo mkdir -p /etc/sudoers.d/
+sudo cp -f ~/Dotfiles/sudo/sudo_configuration /etc/sudoers.d/sudo_configuration
 
 # build boomer
 pushd ~/Dotfiles/boomer/repo > /dev/null
