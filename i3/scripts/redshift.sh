@@ -2,6 +2,8 @@
 
 STEP=200
 DEFAULT=6500
+MIN=3500
+MAX=6500
 STATE="$HOME/.cache/redshift-temp"
 
 [ -f "$STATE" ] || echo "$DEFAULT" > "$STATE"
@@ -25,8 +27,8 @@ case "$1" in
 esac
 
 # clamp
-[ "$TEMP" -gt 6500 ] && TEMP=6500
-[ "$TEMP" -lt 3500 ] && TEMP=3500
+[ "$TEMP" -gt "$MAX" ] && TEMP="$MAX"
+[ "$TEMP" -lt "$MIN" ] && TEMP="$MIN"
 
 echo "$TEMP" > "$STATE"
 redshift -P -O "$TEMP"
